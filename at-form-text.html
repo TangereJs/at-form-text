@@ -1,0 +1,210 @@
+<link rel="import" href="../polymer/polymer.html" />
+<link rel="import" href="../at-core-theme/at-core-theme.html" />
+
+<!--
+@element at-form-text
+at-form-text represents an input element on the form
+-->
+
+<dom-module id="at-form-text">
+  <style>
+    .hide-label {
+      display: none;
+    }
+    #labelContainer > label {
+      font-weight: bold;
+    }
+    .field > .hint {
+      font-size: 12px;
+      color: gray;
+    }
+  </style>
+  <template>
+    <at-core-theme></at-core-theme>
+    <div class="ui form">
+      <div class="" id="labelContainer">
+        <label id="label">{{label}}</label>
+      </div>
+      <div id="field" class="field">
+        <input id="input" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
+        <p id="hint" class="hint"></p>
+      </div>
+    </div>
+  </template>
+</dom-module>
+
+<script>
+  "use strict";
+  Polymer({
+    is: 'at-form-text',
+    properties: {
+      /**
+       * @property value
+       * Element's required status for element validation purposes
+       * notify: true outside world should be notified that element's value has changed
+       * this is achieved via autoamtic value-changed event
+       * observer: 'valueChanged' outside world should be able to set/update the element's value
+       * component is notified about this via valueChanged callback function
+       */
+      value: {
+        type: String,
+        value: '',
+        notify: true,
+        observer: 'valueChanged'
+      },
+      /**
+       * @property hideTitle
+       */
+
+      hideTitle: {
+        type: Boolean,
+        value: false,
+        observer: 'hideTitleChanged'
+      },
+
+      /**
+       * Element's valid state for element validation purposes
+       * notify: true - outside world should be notified when element's valid state changes
+       * readOnly: true - outside world is not able to change element's status since its element's internal state
+       */
+      valid: {
+        type: Boolean,
+        value: true,
+        readOnly: true,
+        notify: true
+      },
+
+      /**
+       * Element's required state for element validation purposes
+       */
+      required: {
+        type: Boolean,
+        value: false
+      },
+
+      /**
+       * Element's disabled state
+       */
+      disabled: {
+        type: Boolean,
+        value: false,
+        observer: 'disabledChanged'
+      },
+
+      /**
+       * Element's name for form submission purposes
+       */
+      name: {
+        type: String,
+        value: ''
+      },
+
+      /**
+       * Element's label for element display purposes
+       */
+      label: {
+        type: String,
+        value: ''
+      },
+
+      /**
+       * Element's placeholder text for element display purposes
+       */
+      placeholder: {
+        type: String,
+        value: ''
+      },
+      maxChars: {
+        type: Number,
+        value: 0
+      }
+    },
+    _messages: {
+      maxCharsHint: "You can not enter more than {maxChars} characters."
+    },
+    _isReady: false,
+    _scopeCssViaAttr: true,
+    hideTitleChanged: function(newValue, oldValue) {
+      this.toggleClass("hide-label", newValue, this.$.labelContainer);
+    },
+    ready: function() {
+      var _self = this;
+      var valueProvider = this.$.input;
+      var hintElement = this.$.hint;
+      valueProvider.addEventListener('change', function(e) {
+        e.stopPropagation();
+        _self.value = valueProvider.value;
+      });
+      valueProvider.addEventListener('blur', function(e) {
+        e.stopPropagation();
+        _self.value = valueProvider.value;
+        _self.validate();
+      });
+
+      valueProvider.addEventListener('input', function(event) {
+        event.stopPropagation();
+        var maxChars = parseInt(_self.maxChars);
+
+        if (maxChars !== 0) {
+          // handle maxChars here
+          var valueLength = valueProvider.value.length;
+          if (valueLength >= maxChars) {
+            valueProvider.value = valueProvider.value.substring(0, maxChars);
+            Polymer.dom(valueProvider).innerHTML = valueProvider.value;
+            Polymer.dom(hintElement).innerHTML = _self._messages.maxCharsHint.replace('{maxChars}', maxChars);
+          } else {
+            Polymer.dom(hintElement).innerHTML = '';
+          }
+        }
+      });
+
+      // update the initial valid state of the element
+      // if the element is required but empty valid state should be false
+      // but no visual indication should be shown
+      this._updateValidState();
+
+      this._isReady = true;
+    },
+
+    disabledChanged: function() {
+      this.toggleAttribute('disabled', this.disabled, this.$.input);
+      if (this.disabled) {
+        this.toggleClass('error', false, this.$.field);
+      } else {
+        this.toggleClass('error', !this.valid, this.$.field);
+      }
+    },
+
+    focus: function () {
+        this.$.input.focus();
+    },
+
+    valueChanged: function(newValue, oldValue) {
+      this.$.input.value = newValue;
+      // when value changes due to user input or its changed programmatically
+      // valid state should be updated and visual indication displayed
+      this.validate();
+    },
+
+    /*
+     * This function updates the element's valid state without showing the visual indication
+     */
+    _updateValidState: function() {
+      var valueToValidate = this.value.trim ? this.value.trim() : this.value;
+      var validState = this.required ? valueToValidate !== '' : true;
+
+      this._setValid(validState);
+
+      return validState;
+    },
+
+    /*
+     * This function updates the element's valid state and shows the visual indication if needed
+     */
+    validate: function() {
+      var validState = this._updateValidState();
+      this.toggleClass('error', !validState, this.$.field);
+      return validState;
+    }
+  });
+</script>
