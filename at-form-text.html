@@ -8,7 +8,7 @@ at-form-text represents an input element on the form
 
 <dom-module id="at-form-text">
   <style>
-    .hide-label {
+    .hidden {
       display: none;
     }
 
@@ -119,6 +119,17 @@ at-form-text represents an input element on the form
       maxChars: {
         type: Number,
         value: 0
+      },
+      /**
+       * Hides the element. When hidden nothing is displayed for the element
+       * @property hide
+       * @type Boolean
+       * @default false
+       */
+      hide: {
+        type: Boolean,
+        value: false,
+        observer: 'hideChanged'
       }
     },
     $meta: [{
@@ -131,7 +142,11 @@ at-form-text represents an input element on the form
     _isReady: false,
     _scopeCssViaAttr: true,
     hideLabelChanged: function(newValue, oldValue) {
-      this.toggleClass("hide-label", newValue, this.$.labelContainer);
+      this.toggleClass("hidden", newValue, this.$.labelContainer);
+    },
+    hideChanged: function (newValue, oldValue) {
+      var wrapper = Polymer.dom(this.root).querySelector('.ui.form');
+      this.toggleClass('hidden', newValue, wrapper);
     },
     ready: function() {
       var _self = this;
