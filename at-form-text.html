@@ -13,7 +13,7 @@ at-form-text represents an input element on the form
     }
 
     #labelContainer {
-      margin: 0em 0em 0.2857rem 0em;      
+      margin: 0em 0em 0.2857rem 0em;
     }
 
     #labelContainer > label {
@@ -215,7 +215,7 @@ at-form-text represents an input element on the form
      * This function updates the element's valid state without showing the visual indication
      */
     _updateValidState: function() {
-      var valueToValidate = this.value.trim ? this.value.trim() : this.value;
+      var valueToValidate = this.value && this.value.trim ? this.value.trim() : this.value;
       var validState = this.required ? valueToValidate !== '' : true;
 
       this._setValid(validState);
