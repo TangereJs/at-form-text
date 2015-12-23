@@ -20,8 +20,14 @@ at-form-text represents an input element on the form
       font-weight: bold;
     }
 
+    --error-color: #e41e2b;
+
     .label-container.error {
-      color: red;
+      color: var(--error-color);
+    }
+
+    .hint-container.error {
+      color: var(--error-color);
     }
 
     .field > .hint {
@@ -37,7 +43,6 @@ at-form-text represents an input element on the form
       </div>
       <div id="field" class="field">
         <input id="input" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
-        <p id="hint" class="hint"></p>
       </div>
     </div>
     <div id="hintContainer" class="hint-container">
@@ -93,7 +98,8 @@ at-form-text represents an input element on the form
        */
       required: {
         type: Boolean,
-        value: false
+        value: false,
+        observer: 'requiredChanged'
       },
 
       /**
@@ -130,7 +136,8 @@ at-form-text represents an input element on the form
       },
       maxChars: {
         type: Number,
-        value: 0
+        value: 0,
+        observer: 'maxCharsChanged'
       },
       /**
        * Hides the element. When hidden nothing is displayed for the element
@@ -148,7 +155,7 @@ at-form-text represents an input element on the form
       title: "Text",
       type: "string"
     }],
-    _messages: {
+    _errorMessageTemplates: {
       maxCharsHint: "You can not enter more than {maxChars} characters."
     },
     _isReady: false,
@@ -156,55 +163,54 @@ at-form-text represents an input element on the form
     hideLabelChanged: function(newValue, oldValue) {
       this.toggleClass("hidden", newValue, this.$.labelContainer);
     },
-    hideChanged: function (newValue, oldValue) {
+    hideChanged: function(newValue, oldValue) {
       var wrapper = Polymer.dom(this.root).querySelector('.ui.form');
       this.toggleClass('hidden', newValue, wrapper);
+      if (this._isReady) {
+        this.validate();
+      }
     },
     ready: function() {
-      var _self = this;
+      var self = this;
       var valueProvider = this.$.input;
-      var hintElement = this.$.hint;
+      var hintElement = this.$.errorHtml;
+      self._validationFunctions.push(self._validateMaxChars.bind(self));
+
       valueProvider.addEventListener('change', function(e) {
         e.stopPropagation();
-        _self.value = valueProvider.value;
+        self.value = valueProvider.value;
       });
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
-        _self.value = valueProvider.value;
-        _self.validate();
+        self.value = valueProvider.value;
+        self.validate();
       });
 
       valueProvider.addEventListener('input', function(event) {
         event.stopPropagation();
-        var maxChars = parseInt(_self.maxChars);
-
-        if (maxChars !== 0) {
-          // handle maxChars here
-          var valueLength = valueProvider.value.length;
-          if (valueLength >= maxChars) {
-            valueProvider.value = valueProvider.value.substring(0, maxChars);
-            Polymer.dom(valueProvider).innerHTML = valueProvider.value;
-            Polymer.dom(hintElement).innerHTML = _self._messages.maxCharsHint.replace('{maxChars}', maxChars);
-          } else {
-            Polymer.dom(hintElement).innerHTML = '';
-          }
-        }
+        self.value = valueProvider.value;
+        self.validate();
       });
-
-      // update the initial valid state of the element
-      // if the element is required but empty valid state should be false
-      // but no visual indication should be shown
-      this._updateValidState();
 
       this._isReady = true;
     },
 
     disabledChanged: function() {
       this.toggleAttribute('disabled', this.disabled, this.$.input);
-      if (this.disabled) {
-        this.toggleClass('error', false, this.$.field);
-      } else {
-        this.toggleClass('error', !this.valid, this.$.field);
+      if (this._isReady) {
+        this.validate();
+      }
+    },
+
+    requiredChanged: function() {
+      if (this._isReady) {
+        this.validate();
+      }
+    },
+
+    maxCharsChanged: function(newValue, oldValue) {
+      if (this._isReady) {
+        this.validate();
       }
     },
 
@@ -217,30 +223,9 @@ at-form-text represents an input element on the form
       // when value changes due to user input or its changed programmatically
       // valid state should be updated and visual indication displayed
       if (this._isReady) {
-        this.validate();        
+        this.validate();
       }
     },
-
-    /*
-     * This function updates the element's valid state without showing the visual indication
-     */
-    _updateValidState: function() {
-      var valueToValidate = this.value && this.value.trim ? this.value.trim() : this.value;
-      var validState = this.required ? valueToValidate !== '' : true;
-
-      this._setValid(validState);
-
-      return validState;
-    },
-
-    /*
-     * This function updates the element's valid state and shows the visual indication if needed
-     */
-    // validate: function() {
-    //   var validState = this._updateValidState();
-    //   this.toggleClass('error', !validState, this.$.field);
-    //   return validState;
-    // }
 
     // *ij* part of validation behavior API
     // include _updateUIValidState function and implement it to update
