@@ -186,12 +186,6 @@ at-form-text represents an input element on the form
         self.validate();
       });
 
-      valueProvider.addEventListener('input', function(event) {
-        event.stopPropagation();
-        self.value = valueProvider.value;
-        self.validate();
-      });
-
       this._isReady = true;
     },
 
