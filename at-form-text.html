@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html" />
 <link rel="import" href="../at-core-theme/at-core-theme.html" />
 <link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html" />
+<link rel="import" href="../at-theme/at-theme.html" />
 <!--
 @element at-form-text
 at-form-text represents an input type=text element on the form
@@ -20,20 +21,17 @@ at-form-text represents an input type=text element on the form
       font-weight: bold;
     }
 
-    :host {
-      --error-color: #e41e2b;
-    }
 
   .label-container{
         margin-top: var(--label-margin-top);
     }
 
     .label-container.error {
-      color: var(--error-color);
+      color: var(--at-error-color);
     }
 
     .hint-container.error {
-      color: var(--error-color);
+      color: var(--at-error-color);
     }
 
     #field.field {
