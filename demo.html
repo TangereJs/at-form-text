@@ -1,0 +1,91 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title></title>
+  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../polymer/polymer.html">
+  <link rel="import" href="at-form-text.html" />
+</head>
+
+<body>
+  <div>
+    <h3>This is demo for at-form-text</h3>
+  </div>
+  <div>
+    <p>The at-form-text has a label and input field</p>
+    <p>Use <b>label</b> attribute to set the desired text to be displayed as label</p>
+    <p>Use <b>type</b> property to set the input type</p>
+  </div>
+  <div>
+    <h4>Example 1: value echo</h4>
+    <p>
+      <at-form-text id="first" name="pera" type="text" label="Value echo" placeholder="This is placeholder..."></at-form-text>
+    </p>
+    <div>
+      <b>Value echo: </b><span id="valueEcho"></span>
+    </div>
+  </div>
+  <div>
+    <h4>Example 2: error</h4>
+    <p>Add <b>required</b> attribute to make at-form-text required</p>
+    <p>
+      <at-form-text name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-text>
+    </p>
+  </div>
+  <div>
+    <h4>Example 3: disabled</h4>
+    <p>Add <b>disabled</b> attribute to make at-form-text disabled</p>
+    <p>
+      <at-form-text name="pera" type="text" label="This is disabled input" placeholder="this is placeholder..." disabled></at-form-text>
+    </p>
+  </div>
+  <div>
+    <h4>Example 4: required and value set programmatically</h4>
+    <p>Value being set is whitespace <code>"          "</code> </p>
+    <p>
+      <at-form-text id="programmatic1" name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-text>
+    </p>
+  </div>
+  <div>
+    <h4>Example 5: required and value set programmatically</h4>
+    <p>Value being set is not whitespace <code>"this is not whitespace"</code> </p>
+    <p>
+      <at-form-text id="programmatic2" name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-text>
+    </p>
+  </div>
+  <div>
+    <h4>Example 6: hidden label demo</h4>
+    <at-form-text label="This is hidden label" placeholder="this is hidden label placeholder..." required hide-label="true"></at-form-text>
+  </div>
+  <div>
+    <h4>Example 6: maxChars demo</h4>
+    <p>maxChars is set to 15</p>
+    <at-form-text label="maxChars demo" placeholder="You can enter max 15 chars here ..." max-chars="15"></at-form-text>
+  </div>
+  <script>
+    document.addEventListener('WebComponentsReady', function (e) {
+
+      var firstAFI = document.getElementById('first');
+      var valueEcho = document.getElementById('valueEcho');
+      valueEcho.innerHTML = firstAFI.value;
+      firstAFI.addEventListener('value-changed', function (e) {
+        valueEcho.innerHTML = e.detail.value;
+      });
+
+      var programmatic = document.getElementById('programmatic1');
+      programmatic.value = "                   ";
+      programmatic.value = "          ";
+
+      var programmatic2 = document.getElementById('programmatic2');
+      programmatic2.value = "This is not whitespace";
+    });
+  </script>
+</body>
+
+</html>

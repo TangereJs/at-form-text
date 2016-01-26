@@ -1,0 +1,9 @@
+{
+  "name": "at-form-text",
+  "private": true,
+  "dependencies": {
+    "polymer": "Polymer/polymer#0.8-preview",
+    "at-theme": "TangereJs/at-theme#0.8-preview",
+    "at-form-behaviors": "TangereJs/at-form-behaviors#0.8-preview"
+  }
+}
