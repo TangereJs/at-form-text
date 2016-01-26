@@ -7,45 +7,116 @@ at-form-text represents an input type=text element on the form
 -->
 
 <dom-module id="at-form-text">
-  <style>
-    .hidden {
-      display: none;
-    }
-
-    #labelContainer {
-      margin: 0 0 0.2857rem 0;
-    }
-
-    #labelContainer > label {
-      font-weight: bold;
-    }
-
-    .label-container.error {
-      color: var(--at-error-color);
-    }
-
-    .hint-container.error {
-      color: var(--at-error-color);
-    }
-
-    #field.field {
-      margin: 0;
-    }
-
-    #field.field.error {
-      margin: 0 0 2px;
-    }
-  </style>
   <template>
-    <div class="ui form">
-      <div id="labelContainer" class="label-container">
-        <label id="label">{{label}}</label>
+    <style is="custom-style">
+      :host * {
+        box-sizing: border-box;
+      }
+
+      :host {
+        cursor: auto;
+        margin: 0;
+        padding: 0;
+        min-width: 278px;
+        background: #f9f9f9;
+        line-height: 1.5;
+        color: #212121;
+      }
+
+      :host input[type="text"] {
+        @apply(--at-default-font)
+        margin: 0em;
+        outline: none;
+        -webkit-appearance: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        line-height: 1.2142em;
+        padding: 0.67861em 1em;
+        font-size: 1em;
+        background: #ffffff;
+        border: 1px solid rgba(39, 41, 43, 0.15);
+        color: #212121;
+        border-radius: 2px;
+        box-shadow: 0em 0em 0em 0em transparent inset;
+        -webkit-transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      }
+
+      :host input[type="text"]:focus {
+        color: rgba(0, 0, 0, 0.85);
+        border-color: rgba(39, 41, 43, 0.3);
+        border-radius: 0em 2px 2px 0em;
+        background: #ffffff;
+        box-shadow: 1px 0em 0em 0em rgba(39, 41, 43, 0.3) inset;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .error {}
+
+      .disabled {}
+
+      :host .at-container {
+        @apply(--at-element);
+      }
+
+      :host .at-container {}
+
+      :host .at-container.error {}
+
+      :host .at-container.disabled {
+        @apply(--at-element-disabled);
+      }
+
+      :host .at-container .at-label-container {}
+
+      :host .at-container .at-label-container.error {
+        @apply(--at-element-label-error);
+      }
+
+      :host .at-container .at-label-container.disabled {}
+
+      :host .at-container .at-label-container .at-label {
+        @apply(--at-element-label);
+      }
+
+      :host .at-container .at-content-container {}
+
+      :host .at-container .at-content-container.error {
+        @apply(--at-element-error-margins);
+      }
+
+      :host .at-container .at-content-container.disabled {}
+
+      :host .at-container .at-content-container .at-content {
+        @apply(--at-element-content);
+      }
+
+      :host .at-container .at-content-container.error .at-content {
+        @apply(--at-element-content-error);
+      }
+
+      :host .at-container .at-hint-container { }
+
+      :host .at-container .at-hint-container.error {
+        @apply(--at-element-hint-error);
+      }
+
+      :host .at-container .at-hint-container.disabled {}
+
+      :host .at-container .at-hint-container .at-hint {}
+    </style>
+
+    <div id="atContainer" class="at-container">
+      <div id="labelContainer" class="at-label-container">
+        <label id="label" class="at-label">{{label}}</label>
       </div>
-      <div id="field" class="field">
-        <input id="input" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
+      <div id="contentContainer" class="at-content-container">
+        <input id="input" class="at-content" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
       </div>
-      <div id="hintContainer" class="hint-container">
-        <p id="errorHtml" class="hint"></p>
+      <div id="hintContainer" class="at-hint-container">
+        <p id="errorHtml" class="at-hint"></p>
       </div>
     </div>
   </template>
@@ -224,8 +295,8 @@ at-form-text represents an input type=text element on the form
     // include _updateUIValidState function and implement it to update
     // the UI to reflect the new valid state
     _updateUIValidState: function(isValid) {
-      var field = this.$.field;
-      this.toggleClass('error', !isValid, field);
+      var contentContainer = this.$.contentContainer;
+      this.toggleClass('error', !isValid, contentContainer);
       var labelContainer = this.$.labelContainer;
       this.toggleClass('error', !isValid, labelContainer);
       var hintContainer = this.$.hintContainer;
