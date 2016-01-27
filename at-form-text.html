@@ -14,98 +14,79 @@ at-form-text represents an input type=text element on the form
       }
 
       :host {
-        cursor: auto;
-        margin: 0;
-        padding: 0;
-        min-width: 278px;
-        background: #f9f9f9;
-        line-height: 1.5;
-        color: #212121;
+        @apply(--at-form-host);
       }
 
-      :host input[type="text"] {
-        @apply(--at-default-font)
-        margin: 0em;
-        outline: none;
-        -webkit-appearance: none;
-        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-        line-height: 1.2142em;
-        padding: 0.67861em 1em;
-        font-size: 1em;
-        background: #ffffff;
-        border: 1px solid rgba(39, 41, 43, 0.15);
-        color: #212121;
-        border-radius: 2px;
-        box-shadow: 0em 0em 0em 0em transparent inset;
-        -webkit-transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      #input {
+        @apply(--at-form-input-common);
+        @apply(--at-form-content);
       }
 
-      :host input[type="text"]:focus {
-        color: rgba(0, 0, 0, 0.85);
-        border-color: rgba(39, 41, 43, 0.3);
-        border-radius: 0em 2px 2px 0em;
-        background: #ffffff;
-        box-shadow: 1px 0em 0em 0em rgba(39, 41, 43, 0.3) inset;
+      #input:focus {
+        @apply(--at-form-input-focus);
+      }
+
+      #input::-webkit-input-placeholder {
+        opacity: 0.8;
+      }
+
+      #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        opacity: 0.8;
+      }
+
+      #input::-moz-placeholder { /* Mozilla Firefox 19+ */
+        opacity: 0.8;
+      }
+
+      #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        opacity: 0.8;
+      }
+
+      #contentContainer.error #input::-webkit-input-placeholder {
+        color: var(--at-error-color);
+      }
+
+      #contentContainer.error #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+        color: var(--at-error-color);
+        opacity:  1;
+      }
+
+      #contentContainer.error #input::-moz-placeholder { /* Mozilla Firefox 19+ */
+        color: var(--at-error-color);
+        opacity:  1;
+      }
+
+      #contentContainer.error #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: var(--at-error-color);
       }
 
       .hidden {
         display: none;
       }
 
-      .error {}
-
-      .disabled {}
-
-      :host .at-container {
-        @apply(--at-element);
+      .error {
+        color: var(--at-error-color);
       }
 
-      :host .at-container {}
-
-      :host .at-container.error {}
-
-      :host .at-container.disabled {
-        @apply(--at-element-disabled);
+      .disabled {
+        @apply(--at-form-disabled);
       }
 
-      :host .at-container .at-label-container {}
-
-      :host .at-container .at-label-container.error {
-        @apply(--at-element-label-error);
+      #atContainer {
+        @apply(--at-form-element);
       }
 
-      :host .at-container .at-label-container.disabled {}
-
-      :host .at-container .at-label-container .at-label {
-        @apply(--at-element-label);
+      #label {
+        @apply(--at-form-label);
       }
 
-      :host .at-container .at-content-container {}
-
-      :host .at-container .at-content-container.error {
-        @apply(--at-element-error-margins);
+      #contentContainer.error {
+        @apply(--at-form-error-margins);
       }
 
-      :host .at-container .at-content-container.disabled {}
-
-      :host .at-container .at-content-container .at-content {
-        @apply(--at-element-content);
+      #contentContainer.error #input {
+        @apply(--at-form-content-error);
       }
-
-      :host .at-container .at-content-container.error .at-content {
-        @apply(--at-element-content-error);
-      }
-
-      :host .at-container .at-hint-container { }
-
-      :host .at-container .at-hint-container.error {
-        @apply(--at-element-hint-error);
-      }
-
-      :host .at-container .at-hint-container.disabled {}
-
-      :host .at-container .at-hint-container .at-hint {}
     </style>
 
     <div id="atContainer" class="at-container">
@@ -151,18 +132,6 @@ at-form-text represents an input type=text element on the form
         value: false,
         observer: 'hideLabelChanged'
       },
-
-      /**
-       * Element's valid state for element validation purposes
-       * notify: true - outside world should be notified when element's valid state changes
-       * readOnly: true - outside world is not able to change element's status since its element's internal state
-       */
-      // valid: {
-      //   type: Boolean,
-      //   value: true,
-      //   readOnly: true,
-      //   notify: true
-      // },
 
       /**
        * Element's required state for element validation purposes
@@ -259,9 +228,12 @@ at-form-text represents an input type=text element on the form
       this._isReady = true;
     },
 
-    disabledChanged: function() {
-      this.toggleAttribute('disabled', this.disabled, this.$.input);
+    disabledChanged: function(newValue, oldValue) {
       if (this._isReady) {
+        var container = this.$.atContainer;
+        this.toggleClass('disabled', newValue, container);
+        var input = this.$.input;
+        this.toggleAttribute('disabled', newValue, input);
         this.validate();
       }
     },
