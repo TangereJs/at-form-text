@@ -19,7 +19,6 @@ at-form-text represents an input type=text element on the form
 
       #input {
         @apply(--at-form-input-common);
-        @apply(--at-form-content);
       }
 
       #input:focus {
@@ -27,37 +26,37 @@ at-form-text represents an input type=text element on the form
       }
 
       #input::-webkit-input-placeholder {
-        opacity: 0.8;
+        @apply(--at-form-input-placeholder);
       }
 
       #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        opacity: 0.8;
+        @apply(--at-form-input-placeholder);
       }
 
       #input::-moz-placeholder { /* Mozilla Firefox 19+ */
-        opacity: 0.8;
+        @apply(--at-form-input-placeholder);
       }
 
       #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        opacity: 0.8;
+        @apply(--at-form-input-placeholder);
       }
 
       #contentContainer.error #input::-webkit-input-placeholder {
-        color: var(--at-error-color);
+        @apply(--at-form-input-placeholder-error);
       }
 
       #contentContainer.error #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        color: var(--at-error-color);
+        @apply(--at-form-input-placeholder-error);
         opacity:  1;
       }
 
       #contentContainer.error #input::-moz-placeholder { /* Mozilla Firefox 19+ */
-        color: var(--at-error-color);
+        @apply(--at-form-input-placeholder-error);
         opacity:  1;
       }
 
       #contentContainer.error #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        color: var(--at-error-color);
+        @apply(--at-form-input-placeholder-error);
       }
 
       .hidden {
@@ -86,6 +85,10 @@ at-form-text represents an input type=text element on the form
 
       #contentContainer.error #input {
         @apply(--at-form-content-error);
+      }
+
+      #errorHtml {
+        @apply(--at-form-error-font);
       }
     </style>
 
