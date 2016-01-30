@@ -100,7 +100,7 @@ at-form-text represents an input type=text element on the form
         <input id="input" class="at-content" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
       </div>
       <div id="hintContainer" class="at-hint-container">
-        <p id="errorHtml" class="at-hint"></p>
+        <div id="errorHtml" class="at-hint"></div>
       </div>
     </div>
   </template>
@@ -201,8 +201,7 @@ at-form-text represents an input type=text element on the form
     _errorMessageTemplates: {
       maxCharsHint: "You can not enter more than {maxChars} characters."
     },
-    _isReady: false,
-    _scopeCssViaAttr: true,
+    _isReady: false,    
     hideLabelChanged: function(newValue, oldValue) {
       this.toggleClass("hidden", newValue, this.$.labelContainer);
     },
@@ -232,11 +231,13 @@ at-form-text represents an input type=text element on the form
     },
 
     disabledChanged: function(newValue, oldValue) {
+    debugger;
+      var container = this.$.atContainer;
+      this.toggleClass('disabled', newValue, container);
+      var input = this.$.input;
+      this.toggleAttribute('disabled', newValue, input);
+      
       if (this._isReady) {
-        var container = this.$.atContainer;
-        this.toggleClass('disabled', newValue, container);
-        var input = this.$.input;
-        this.toggleAttribute('disabled', newValue, input);
         this.validate();
       }
     },

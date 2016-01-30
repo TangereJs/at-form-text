@@ -46,8 +46,7 @@
     </p>
   </div>
   <div>
-    <h4>Example 4: required and value set programmatically</h4>
-    <p>Value being set is whitespace <code>"          "</code> </p>
+    <h4>Example 4: required</h4>    
     <p>
       <at-form-text id="programmatic1" name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-text>
     </p>
@@ -78,9 +77,9 @@
         valueEcho.innerHTML = e.detail.value;
       });
 
-      var programmatic = document.getElementById('programmatic1');
-      programmatic.value = "                   ";
-      programmatic.value = "          ";
+      var programmatic = document.getElementById('programmatic1');      
+      programmatic.value = "";
+      programmatic.validate();
 
       var programmatic2 = document.getElementById('programmatic2');
       programmatic2.value = "This is not whitespace";
