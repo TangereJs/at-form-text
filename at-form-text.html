@@ -19,11 +19,11 @@ at-form-text represents an input type=text element on the form
         @apply(--at-form-host);
       }
 
-      #input {
+      .at-content {
         @apply(--at-form-input-common);
       }
 
-      #input:focus {
+      .at-content:focus {
         @apply(--at-form-input-focus);
       }
 
@@ -35,14 +35,6 @@ at-form-text represents an input type=text element on the form
         @apply(--at-form-label);
       }
 
-      #contentContainer.error {
-        @apply(--at-form-error-margins);
-      }
-
-      #contentContainer.error #input {
-        @apply(--at-form-content-error);
-      }
-
       #hint {
         @apply(--at-form-error-font);
       }
@@ -50,8 +42,8 @@ at-form-text represents an input type=text element on the form
 
     <div id="atContainer">
       <iron-label id="label" for="input">{{label}}</iron-label>
-      <div id="contentContainer">
-        <input id="input" class="has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
+      <div id="contentContainer" class="content-container">
+        <input id="input" class="at-content has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
       </div>
       <div id="hint"></div>
     </div>
