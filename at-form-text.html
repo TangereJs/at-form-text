@@ -43,7 +43,7 @@ at-form-text represents an input type=text element on the form
         @apply(--at-form-content-error);
       }
 
-      #errorContainer {
+      #hint {
         @apply(--at-form-error-font);
       }
     </style>
@@ -53,7 +53,7 @@ at-form-text represents an input type=text element on the form
       <div id="contentContainer">
         <input id="input" class="has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
       </div>
-      <div id="errorHtml"></div>
+      <div id="hint"></div>
     </div>
   </template>
 </dom-module>
@@ -225,8 +225,8 @@ at-form-text represents an input type=text element on the form
       this.toggleClass('error', !isValid, label);
       var contentContainer = this.$.contentContainer;
       this.toggleClass('error', !isValid, contentContainer);
-      var errorHtml = this.$.errorHtml;
-      this.toggleClass('error', !isValid, errorHtml);
+      var hint = this.$.hint;
+      this.toggleClass('error', !isValid, hint);
     },
     // *ij* part of validation behavior API
     // this is a custom validation function which checks the max chars constraint
