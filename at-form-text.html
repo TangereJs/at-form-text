@@ -1,6 +1,7 @@
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../at-theme/at-theme.html" />
-<link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html" />
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../at-theme/at-theme.html">
+<link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html">
+<link rel="import" href="../iron-label/iron-label.html">
 <!--
 @element at-form-text
 at-form-text represents an input type=text element on the form
@@ -8,6 +9,7 @@ at-form-text represents an input type=text element on the form
 
 <dom-module id="at-form-text">
   <template>
+    <style include="at-form-common"></style>
     <style>
       :host * {
         box-sizing: border-box;
@@ -23,52 +25,6 @@ at-form-text represents an input type=text element on the form
 
       #input:focus {
         @apply(--at-form-input-focus);
-      }
-
-      #input::-webkit-input-placeholder {
-        @apply(--at-form-input-placeholder);
-      }
-
-      #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        @apply(--at-form-input-placeholder);
-      }
-
-      #input::-moz-placeholder { /* Mozilla Firefox 19+ */
-        @apply(--at-form-input-placeholder);
-      }
-
-      #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        @apply(--at-form-input-placeholder);
-      }
-
-      #contentContainer.error #input::-webkit-input-placeholder {
-        @apply(--at-form-input-placeholder-error);
-      }
-
-      #contentContainer.error #input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-        @apply(--at-form-input-placeholder-error);
-        opacity:  1;
-      }
-
-      #contentContainer.error #input::-moz-placeholder { /* Mozilla Firefox 19+ */
-        @apply(--at-form-input-placeholder-error);
-        opacity:  1;
-      }
-
-      #contentContainer.error #input:-ms-input-placeholder { /* Internet Explorer 10-11 */
-        @apply(--at-form-input-placeholder-error);
-      }
-
-      .hidden {
-        display: none;
-      }
-
-      .error {
-        color: var(--at-error-color);
-      }
-
-      .disabled {
-        @apply(--at-form-disabled);
       }
 
       #atContainer {
@@ -87,21 +43,17 @@ at-form-text represents an input type=text element on the form
         @apply(--at-form-content-error);
       }
 
-      #errorHtml {
+      #errorContainer {
         @apply(--at-form-error-font);
       }
     </style>
 
-    <div id="atContainer" class="at-container">
-      <div id="labelContainer" class="at-label-container">
-        <label id="label" class="at-label">{{label}}</label>
+    <div id="atContainer">
+      <iron-label id="label" for="input">{{label}}</iron-label>
+      <div id="contentContainer">
+        <input id="input" class="has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
       </div>
-      <div id="contentContainer" class="at-content-container">
-        <input id="input" class="at-content" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
-      </div>
-      <div id="hintContainer" class="at-hint-container">
-        <div id="errorHtml" class="at-hint"></div>
-      </div>
+      <div id="errorHtml"></div>
     </div>
   </template>
 </dom-module>
@@ -201,21 +153,22 @@ at-form-text represents an input type=text element on the form
     _errorMessageTemplates: {
       maxCharsHint: "You can not enter more than {maxChars} characters."
     },
-    _isReady: false,    
     hideLabelChanged: function(newValue, oldValue) {
-      this.toggleClass("hidden", newValue, this.$.labelContainer);
+      var label = this.$.label;
+      this.toggleClass("hidden", newValue, label);
     },
     hideChanged: function(newValue, oldValue) {
-      var wrapper = Polymer.dom(this.root).querySelector('.ui.form');
+      var wrapper = this.$.atContainer;
       this.toggleClass('hidden', newValue, wrapper);
       if (this._isReady) {
         this.validate();
       }
     },
     ready: function() {
+      this._isReady = false;
+
       var self = this;
       var valueProvider = this.$.input;
-      var hintElement = this.$.errorHtml;
       self._validationFunctions.push(self._validateMaxChars.bind(self));
 
       valueProvider.addEventListener('change', function(e) {
@@ -224,19 +177,16 @@ at-form-text represents an input type=text element on the form
       });
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
-        // self.value = valueProvider.value;
         self.validate();
       });
+
       this._isReady = true;
     },
 
     disabledChanged: function(newValue, oldValue) {
-    debugger;
       var container = this.$.atContainer;
       this.toggleClass('disabled', newValue, container);
-      var input = this.$.input;
-      this.toggleAttribute('disabled', newValue, input);
-      
+
       if (this._isReady) {
         this.validate();
       }
@@ -271,12 +221,12 @@ at-form-text represents an input type=text element on the form
     // include _updateUIValidState function and implement it to update
     // the UI to reflect the new valid state
     _updateUIValidState: function(isValid) {
+      var label = this.$.label;
+      this.toggleClass('error', !isValid, label);
       var contentContainer = this.$.contentContainer;
       this.toggleClass('error', !isValid, contentContainer);
-      var labelContainer = this.$.labelContainer;
-      this.toggleClass('error', !isValid, labelContainer);
-      var hintContainer = this.$.hintContainer;
-      this.toggleClass('error', !isValid, hintContainer);
+      var errorHtml = this.$.errorHtml;
+      this.toggleClass('error', !isValid, errorHtml);
     },
     // *ij* part of validation behavior API
     // this is a custom validation function which checks the max chars constraint
