@@ -47,7 +47,6 @@ at-form-text represents an input type=text element on the form
       value: {
         type: String,
         value: '',
-        notify: true,
         observer: 'valueChanged'
       },
       /**
@@ -146,6 +145,8 @@ at-form-text represents an input type=text element on the form
       valueProvider.addEventListener('change', function(e) {
         e.stopPropagation();
         self.value = valueProvider.value;
+        self.validate();
+        self.fire('value-changed', { value: self.value });
       });
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
