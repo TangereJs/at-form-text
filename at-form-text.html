@@ -18,24 +18,11 @@ at-form-text represents an input type=text element on the form
       :host {
         @apply(--at-form-host);
       }
-
-      .at-content {
-        @apply(--at-form-input-common);
-      }
-
-      .at-content:focus {
-        @apply(--at-form-input-focus);
-      }
-
-      #atContainer {
-        @apply(--at-form-element);
-      }
-
     </style>
 
-    <div id="atContainer">
+    <div id="atContainer" class="at-container">
       <iron-label id="label" for="input">{{label}}</iron-label>
-      <div id="contentContainer" class="content-container">
+      <div id="contentContainer" class="at-content-container">
         <input id="input" class="at-content has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
       </div>
       <div id="hint"></div>
