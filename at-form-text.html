@@ -1,54 +1,31 @@
-<link rel="import" href="../polymer/polymer.html" />
-<link rel="import" href="../at-core-theme/at-core-theme.html" />
-<link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html" />
-<link rel="import" href="../at-theme/at-theme.html" />
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../at-theme/at-theme.html">
+<link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html">
+<link rel="import" href="../iron-label/iron-label.html">
 <!--
 @element at-form-text
 at-form-text represents an input type=text element on the form
 -->
 
 <dom-module id="at-form-text">
-  <style>
-    .hidden {
-      display: none;
-    }
-
-    #labelContainer {
-      margin: 0 0 0.2857rem 0;
-    }
-
-    #labelContainer > label {
-      font-weight: bold;
-    }
-
-    .label-container.error {
-      color: var(--at-error-color);
-    }
-
-    .hint-container.error {
-      color: var(--at-error-color);
-    }
-
-    #field.field {
-      margin: 0;
-    }
-
-    #field.field.error {
-      margin: 0 0 2px;
-    }
-  </style>
   <template>
-    <at-core-theme></at-core-theme>
-    <div class="ui form">
-      <div id="labelContainer" class="label-container">
-        <label id="label">{{label}}</label>
+    <style include="at-form-common"></style>
+    <style>
+      :host * {
+        box-sizing: border-box;
+      }
+
+      :host {
+        @apply(--at-form-host);
+      }
+    </style>
+
+    <div id="atContainer" class="at-container">
+      <iron-label id="label" for="input">{{label}}</iron-label>
+      <div id="contentContainer" class="at-content-container">
+        <input id="input" class="at-content has-placeholder" name$="{{name}}" type="text" disabled$="{{disabled}}" placeholder$="{{placeholder}}">
       </div>
-      <div id="field" class="field">
-        <input id="input" name$="{{name}}" type="text" placeholder$="{{placeholder}}" />
-      </div>
-      <div id="hintContainer" class="hint-container">
-        <p id="errorHtml" class="hint"></p>
-      </div>
+      <div id="hint"></div>
     </div>
   </template>
 </dom-module>
@@ -81,18 +58,6 @@ at-form-text represents an input type=text element on the form
         value: false,
         observer: 'hideLabelChanged'
       },
-
-      /**
-       * Element's valid state for element validation purposes
-       * notify: true - outside world should be notified when element's valid state changes
-       * readOnly: true - outside world is not able to change element's status since its element's internal state
-       */
-      // valid: {
-      //   type: Boolean,
-      //   value: true,
-      //   readOnly: true,
-      //   notify: true
-      // },
 
       /**
        * Element's required state for element validation purposes
@@ -159,22 +124,22 @@ at-form-text represents an input type=text element on the form
     _errorMessageTemplates: {
       maxCharsHint: "You can not enter more than {maxChars} characters."
     },
-    _isReady: false,
-    _scopeCssViaAttr: true,
     hideLabelChanged: function(newValue, oldValue) {
-      this.toggleClass("hidden", newValue, this.$.labelContainer);
+      var label = this.$.label;
+      this.toggleClass("hidden", newValue, label);
     },
     hideChanged: function(newValue, oldValue) {
-      var wrapper = Polymer.dom(this.root).querySelector('.ui.form');
+      var wrapper = this.$.atContainer;
       this.toggleClass('hidden', newValue, wrapper);
       if (this._isReady) {
         this.validate();
       }
     },
     ready: function() {
+      this._isReady = false;
+
       var self = this;
       var valueProvider = this.$.input;
-      var hintElement = this.$.errorHtml;
       self._validationFunctions.push(self._validateMaxChars.bind(self));
 
       valueProvider.addEventListener('change', function(e) {
@@ -185,14 +150,16 @@ at-form-text represents an input type=text element on the form
       });
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
-        // self.value = valueProvider.value;
         self.validate();
       });
+
       this._isReady = true;
     },
 
-    disabledChanged: function() {
-      this.toggleAttribute('disabled', this.disabled, this.$.input);
+    disabledChanged: function(newValue, oldValue) {
+      var container = this.$.atContainer;
+      this.toggleClass('disabled', newValue, container);
+
       if (this._isReady) {
         this.validate();
       }
@@ -227,12 +194,12 @@ at-form-text represents an input type=text element on the form
     // include _updateUIValidState function and implement it to update
     // the UI to reflect the new valid state
     _updateUIValidState: function(isValid) {
-      var field = this.$.field;
-      this.toggleClass('error', !isValid, field);
-      var labelContainer = this.$.labelContainer;
-      this.toggleClass('error', !isValid, labelContainer);
-      var hintContainer = this.$.hintContainer;
-      this.toggleClass('error', !isValid, hintContainer);
+      var label = this.$.label;
+      this.toggleClass('error', !isValid, label);
+      var contentContainer = this.$.contentContainer;
+      this.toggleClass('error', !isValid, contentContainer);
+      var hint = this.$.hint;
+      this.toggleClass('error', !isValid, hint);
     },
     // *ij* part of validation behavior API
     // this is a custom validation function which checks the max chars constraint
