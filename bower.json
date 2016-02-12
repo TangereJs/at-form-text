@@ -6,7 +6,6 @@
     "at-theme": "TangereJs/at-theme#0.8-preview",
     "at-carbon-icon": "TangereJs/at-carbon-icon#0.8-preview",
     "at-form-behaviors": "TangereJs/at-form-behaviors#0.8-preview",
-    "iron-label": "PolymerElements/iron-label#master",
-
+    "iron-label": "PolymerElements/iron-label#master"
   }
 }
