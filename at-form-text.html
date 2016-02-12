@@ -148,9 +148,16 @@ at-form-text represents an input type=text element on the form
         self.validate();
         self.fire('value-changed', { value: self.value });
       });
+
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
         self.validate();
+      });
+
+      valueProvider.addEventListener('keypress', function(event) {
+        if (event.which === 13) {
+          event.preventDefault();
+        }
       });
 
       this._isReady = true;
