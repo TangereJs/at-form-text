@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../at-theme/at-theme.html">
+<link rel="import" href="../at-i18n/at-i18n-behavior.html">
 <link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html">
 <link rel="import" href="../iron-label/iron-label.html">
 <!--
@@ -34,7 +35,7 @@ at-form-text represents an input type=text element on the form
   "use strict";
   Polymer({
     is: 'at-form-text',
-    behaviors: [AtFormBehaviors.AtFormBehaviorsValidation],
+    behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formValidation],
     properties: {
       /**
        * @property value
