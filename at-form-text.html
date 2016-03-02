@@ -140,6 +140,8 @@ at-form-text represents an input type=text element on the form
     ready: function() {
       this._isReady = false;
 
+      this._errorMessageTemplates.maxCharsHint = this.T(this._errorMessageTemplates.maxCharsHint);
+
       var self = this;
       var valueProvider = this.$.input;
       self._validationFunctions.push(self._validateMaxChars.bind(self));
