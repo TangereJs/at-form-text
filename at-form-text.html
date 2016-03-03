@@ -124,7 +124,7 @@ at-form-text represents an input type=text element on the form
       type: "string"
     }],
     _errorMessageTemplates: {
-      maxCharsHint: "You can not enter more than {maxChars} characters."
+      maxCharsHint: "You can not enter more than {0} characters."
     },
     hideLabelChanged: function(newValue, oldValue) {
       var label = this.$.label;
@@ -221,7 +221,7 @@ at-form-text represents an input type=text element on the form
           var charCount = value.length;
           valid = (maxChars + 1) > charCount;
 
-          this._errorMessage = this._errorMessageTemplates.maxCharsHint.replace("{maxChars}", this.maxChars);
+          this._errorMessage = this._errorMessageTemplates.maxCharsHint.replace("{0}", this.maxChars);
         }
       } catch (e) {
         console.log(e);
