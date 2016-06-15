@@ -61,6 +61,18 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="isHintDisplayed">
+    <template>
+      <at-form-text hint="This is demo hint"></at-form-text>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="isLabelHidden">
+    <template>
+      <at-form-text label="Lorem ipsum" hide-label="true"></at-form-text>
+    </template>
+  </test-fixture>
+
   <script>
 
     suite('basic', function() {
@@ -115,6 +127,27 @@
         input.errorMessage = 'Another version of demo error message';
         assert.equal(input.errorMessage, 'Another version of demo error message', 'error message is correctly set');
         assert.equal(input.valid, false, 'input is invalid because error message is set as property');
+      });
+
+      test('is hint displayed', function(done) {
+        var input = fixture('isHintDisplayed');
+        assert.equal(input.hint, "This is demo hint", 'input.hint property is not set');
+        var inputElement = input._getFocusableElement();
+        MockInteractions.focus(inputElement);
+
+        flush(function () {
+          assert.equal(input.$.hint.innerHTML, "This is demo hint", 'input.hint text is incorrect');
+          done();
+        });
+      });
+
+      test('is label hidden', function() {
+        var input = fixture('isLabelHidden');
+        assert.equal(input.label, "Lorem ipsum", 'Label value not set');
+        assert.equal(input.$.label.classList.contains('hidden'), true, 'label doesn\'t have hidden css class');
+        input.hideLabel = false;
+        assert.equal(input.label, "Lorem ipsum", 'Label value not set');
+        assert.equal(input.$.label.classList.contains('hidden'), false, 'label should not have hidden css class');
       });
 
     });
