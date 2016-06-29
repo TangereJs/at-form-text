@@ -121,7 +121,7 @@ at-form-text represents an input type=text element on the form
     $meta: [{
       title: "Text",
       type: "string",
-      events: []
+      events: [ "value-changed" ]
     }],
     hideLabelChanged: function(newValue, oldValue) {
       var label = this.$.label;
