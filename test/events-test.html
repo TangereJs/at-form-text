@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>at-form-text tests</title>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+  <script src="../../web-component-tester/browser.js"></script>
+  <script src="../../iron-test-helpers/test-helpers.js"></script>
+  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+
+  <link rel="import" href="../at-form-text.html">
+
+</head>
+<body>
+
+  <test-fixture id="valueChanged">
+    <template>
+      <at-form-text></at-form-text>
+    </template>
+  </test-fixture>
+
+  <script>
+
+    suite('events tests', function() {
+
+      test('setting .value trigger value-changed event', function(done) {
+        var input = fixture('valueChanged');
+
+        input.addEventListener('value-changed', function(event) {
+          debugger;
+          assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
+          assert.equal(input.value, 'demo value', 'event detail value not set correctly');
+          done();
+        });
+
+        input.value = 'demo value';
+      });
+
+    });
+  </script>
+
+</body>
+</html>

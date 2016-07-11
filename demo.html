@@ -9,7 +9,6 @@
 
   <title></title>
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../polymer/polymer.html">
   <link rel="import" href="at-form-text.html" />
 </head>
 
@@ -46,7 +45,7 @@
     </p>
   </div>
   <div>
-    <h4>Example 4: required</h4>    
+    <h4>Example 4: required</h4>
     <p>
       <at-form-text id="programmatic1" name="pera" type="text" label="This is required input" placeholder="this is placeholder..." required></at-form-text>
     </p>
@@ -77,7 +76,7 @@
         valueEcho.innerHTML = e.detail.value;
       });
 
-      var programmatic = document.getElementById('programmatic1');      
+      var programmatic = document.getElementById('programmatic1');
       programmatic.value = "";
       programmatic.validate();
 
