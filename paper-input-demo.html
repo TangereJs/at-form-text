@@ -1,0 +1,41 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title></title>
+  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../paper-input/paper-input.html">
+</head>
+
+<body>
+  <div>
+    <h3>This is demo for paper-input value-changed event</h3>
+  </div>
+  <div>
+    <paper-input id="input"></paper-input>
+  </div>
+  <div class="">
+    <h4>Value changed echo: <span id="valueChangedEcho"></span></h4>
+  </div>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function () {
+      var input = document.getElementById('input');
+      var echo = document.getElementById('valueChangedEcho');
+
+      input.addEventListener('value-changed', function(event) {
+        echo.textContent = event.detail.value;
+      });
+
+      input.value = "Lorem Ipsum";
+
+    });
+  </script>
+</body>
+
+</html>
