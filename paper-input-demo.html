@@ -11,6 +11,8 @@
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../paper-input/paper-input.html">
   <link rel="import" href="paper-input-demo-component.html">
+  <link rel="import" href="notify-true.html">
+  <link rel="import" href="notify-true-attr-demo.html">
 </head>
 
 <body>
@@ -26,10 +28,28 @@
   </div>
 
   <div>
-    <h3>This is demo for paper-input value-changed event</h3>
+    <h3>This is paper-input-demo-component</h3>
   </div>
   <div>
     <paper-input-demo-component></paper-input-demo-component>
+  </div>
+
+  <div>
+    <h3>This is notify-true component test</h3>
+  </div>
+  <div>
+    <notify-true id="notifyInput"></notify-true>
+  </div>
+  <div class="">
+    <h4>Value changed echo: <span id="ntValueChangedEcho"></span></h4>
+    <h4>Event count: <span id="ntEventCount"></span></h4>
+  </div>
+
+  <div>
+    <h3>This is notify-true-attr-demo</h3>
+  </div>
+  <div>
+    <notify-true-attr-demo></notify-true-attr-demo>
   </div>
 
   <script>
@@ -40,7 +60,7 @@
       var count = 0;
 
       input.addEventListener('value-changed', function(event) {
-        console.log('event.value: ' + event.detail.value);
+        console.log('paper-input event.value: ' + event.detail.value);
         echo.textContent = event.detail.value;
         count += 1;
         eventCount.textContent = count;
@@ -53,6 +73,21 @@
       input.value = "Lorem Ipsum";
 
       Polymer.dom(input).setAttribute('value', "Lorem Ipsum");
+
+      var ntInput = document.getElementById('notifyInput');
+      var ntEcho = document.getElementById('ntValueChangedEcho');
+      var ntEventCount = document.getElementById('ntEventCount');
+      var ntCount = 0;
+
+      ntInput.addEventListener('value-changed', function(event) {
+        console.log('notify-true event.value: ' + event.detail.value);
+        ntEcho.textContent = event.detail.value;
+        ntCount += 1;
+        ntEventCount.textContent = ntCount;
+      });
+
+      ntInput.value = "Lorem Ipsum";
+      Polymer.dom(ntInput).setAttribute('value', 'Lorem Ipsum');
     });
 
   </script>

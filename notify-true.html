@@ -1,0 +1,28 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="notify-true">
+  <template>
+    <style>
+    </style>
+    <input type="text" name="name" value="{{value}}" on-change="_input_onChange">
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'notify-true',
+      properties: {
+        value: {
+          type: String,
+          value: "",
+          notify: true
+        }
+      },
+      _input_onChange: function (event) {
+        this.value = event.target.value;
+      },
+      ready: function () {
+
+      }
+    });
+  </script>
+</dom-module>

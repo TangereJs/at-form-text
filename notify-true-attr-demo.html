@@ -1,0 +1,25 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="notify-true.html">
+
+<dom-module id="notify-true-attr-demo">
+  <template>
+    <style>
+    </style>
+    <notify-true id="input" on-value-changed="_logValueChanged" value="abc"></notify-true>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'notify-true-attr-demo',
+      properties: {
+
+      },
+      ready: function () {
+        this.$.input.value = "abc";
+      },
+      _logValueChanged: function (event) {
+        console.log("event value: " + event.detail.value);
+      }
+    });
+  </script>
+</dom-module>
