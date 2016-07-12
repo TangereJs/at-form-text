@@ -5,7 +5,7 @@
   <template>
     <style>
     </style>
-    <paper-input on-value-changed="_logValueChanged" value="abc"></paper-input>
+    <paper-input id="input" on-value-changed="_logValueChanged" value="abc"></paper-input>
   </template>
   <script>
     'use strict';
@@ -15,7 +15,7 @@
 
       },
       ready: function () {
-
+        this.$.input.value = "abc";
       },
       _logValueChanged: function (event) {
         console.log("event value: " + event.detail.value);
