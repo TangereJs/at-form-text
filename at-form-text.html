@@ -40,7 +40,6 @@ at-form-text represents an input type=text element on the form
       /**
        * @property value
        * Element's required status for element validation purposes
-       * notify: true outside world should be notified that element's value has changed
        * this is achieved via autoamtic value-changed event
        * observer: 'valueChanged' outside world should be able to set/update the element's value
        * component is notified about this via valueChanged callback function
@@ -135,7 +134,6 @@ at-form-text represents an input type=text element on the form
       }
     },
     ready: function() {
-      this._isReady = false;
 
       var self = this;
       var valueProvider = this.$.input;
@@ -191,8 +189,12 @@ at-form-text represents an input type=text element on the form
       this.$.input.value = newValue;
       // when value changes due to user input or its changed programmatically
       // valid state should be updated and visual indication displayed
+      // when valueChanged is called because value is set as attribute
+      // that happens before ready function is called, so value-changed
+      // should not be fired initially
       if (this._isReady) {
         this.validate();
+        this.fire('value-changed', { value: newValue });
       }
     },
 

@@ -15,6 +15,7 @@
   <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../at-form-text.html">
+  <link rel="import" href="../../paper-input/paper-input.html">
 
 </head>
 <body>
@@ -25,21 +26,64 @@
     </template>
   </test-fixture>
 
+  <test-fixture id="valueAsAttrTextFixture">
+    <template>
+      <at-form-text value="lorem ipsum"></at-form-text>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="paperValueChanged">
+    <template>
+      <paper-input></paper-input>
+    </template>
+  </test-fixture>
+
   <script>
 
     suite('events tests', function() {
 
       test('setting .value trigger value-changed event', function(done) {
         var input = fixture('valueChanged');
+        assert.equal(input.value, '', 'initial value not set correctly');
 
         input.addEventListener('value-changed', function(event) {
-          debugger;
           assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
           assert.equal(input.value, 'demo value', 'event detail value not set correctly');
           done();
         });
 
         input.value = 'demo value';
+        Polymer.dom(input).setAttribute('value', 'demo value');
+        input.value = 'demo value';
+        Polymer.dom(input).setAttribute('value', 'demo value');
+      });
+
+      test('setting value attribute doesn\'t trigger value-changed event', function(done) {
+        var input = fixture('valueAsAttrTextFixture');
+        assert.equal(input.value, 'lorem ipsum', 'initial value not set correctly');
+
+        var eventCount = 0;
+        input.addEventListener('value-changed', function(event) {
+          eventCount += 1;
+        });
+
+        flush(function () {
+          assert.equal(eventCount, 0, 'value-changed event was fired');
+          done();
+        });
+      });
+
+
+      test('paper-input value changed', function (done) {
+        var input = fixture('paperValueChanged');
+
+        input.addEventListener('value-changed', function(event) {
+          assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
+          assert.equal(input.value, 'demo value', 'event detail value not set correctly');
+          done();
+        });
+
+        input.value = "demo value";
       });
 
     });
