@@ -1,0 +1,25 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input.html">
+
+<dom-module id="paper-input-demo-component">
+  <template>
+    <style>
+    </style>
+    <paper-input on-value-changed="_logValueChanged" value="abc"></paper-input>
+  </template>
+  <script>
+    'use strict';
+    Polymer({
+      is: 'paper-input-demo-component',
+      properties: {
+
+      },
+      ready: function () {
+
+      },
+      _logValueChanged: function (event) {
+        console.log("event value: " + event.detail.value);
+      }
+    });
+  </script>
+</dom-module>

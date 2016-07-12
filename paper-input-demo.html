@@ -10,6 +10,7 @@
   <title></title>
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="../paper-input/paper-input.html">
+  <link rel="import" href="paper-input-demo-component.html">
 </head>
 
 <body>
@@ -21,20 +22,39 @@
   </div>
   <div class="">
     <h4>Value changed echo: <span id="valueChangedEcho"></span></h4>
+    <h4>Event count: <span id="eventCount"></span></h4>
+  </div>
+
+  <div>
+    <h3>This is demo for paper-input value-changed event</h3>
+  </div>
+  <div>
+    <paper-input-demo-component></paper-input-demo-component>
   </div>
 
   <script>
     document.addEventListener('WebComponentsReady', function () {
       var input = document.getElementById('input');
       var echo = document.getElementById('valueChangedEcho');
+      var eventCount = document.getElementById('eventCount');
+      var count = 0;
 
       input.addEventListener('value-changed', function(event) {
+        console.log('event.value: ' + event.detail.value);
         echo.textContent = event.detail.value;
+        count += 1;
+        eventCount.textContent = count;
       });
 
       input.value = "Lorem Ipsum";
 
+      Polymer.dom(input).setAttribute('value', "Lorem Ipsum");
+
+      input.value = "Lorem Ipsum";
+
+      Polymer.dom(input).setAttribute('value', "Lorem Ipsum");
     });
+
   </script>
 </body>
 
