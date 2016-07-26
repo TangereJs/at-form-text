@@ -1,7 +1,7 @@
 <link rel="import" href="../tangere/tangere.html">
 <link rel="import" href="../at-theme/at-theme.html">
 <link rel="import" href="../at-i18n/at-i18n-behavior.html">
-<link rel="import" href="../at-form-behaviors/at-form-behaviors-validation.html">
+<link rel="import" href="../at-form-behaviors/at-form-behaviors.html">
 <link rel="import" href="../iron-label/iron-label.html">
 <!--
 @element at-form-text
@@ -143,7 +143,7 @@ at-form-text represents an input type=text element on the form
         e.stopPropagation();
         self.value = valueProvider.value;
         self.validate();
-        self.fire('value-changed', { value: self.value });
+        self._fireValueChangedEvent(self.value);
       });
 
       valueProvider.addEventListener('blur', function(e) {
@@ -194,7 +194,7 @@ at-form-text represents an input type=text element on the form
       // should not be fired initially
       if (this._isReady) {
         this.validate();
-        this.fire('value-changed', { value: newValue });
+        this._fireValueChangedEvent(newValue);
       }
     },
 
