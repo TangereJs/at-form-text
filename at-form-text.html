@@ -186,7 +186,15 @@ at-form-text represents an input type=text element on the form
     },
 
     valueChanged: function(newValue, oldValue) {
-      this.$.input.value = newValue;
+      var valueProvider = this.$.input;
+      
+      if (newValue === null) {
+        // if user sets at-form-text.value to null input should display initial value which is empty string
+        valueProvider.value = this.properties.value.value;
+      } else {
+        valueProvider.value = newValue;
+      }
+
       // when value changes due to user input or its changed programmatically
       // valid state should be updated and visual indication displayed
       // when valueChanged is called because value is set as attribute
