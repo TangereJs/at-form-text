@@ -154,15 +154,9 @@ at-form-text represents an input type=text element on the form
       valueProvider.addEventListener('keypress', function(event) {
         if (event.which === 13) {
           event.preventDefault();
-        }
-        self.validate(valueProvider.value);
-      });
-
-      valueProvider.addEventListener('keyup', function(event) {
-        var KEY_BACKSPACE = 8;
-        var KEY_DELETE = 46;
-        if (event.which === KEY_BACKSPACE || event.which === KEY_DELETE) {
-          self.validate(valueProvider.value);
+          self.value = valueProvider.value;
+          self.validate();
+          self._fireValueChangedEvent(self.value);
         }
       });
 
@@ -224,6 +218,7 @@ at-form-text represents an input type=text element on the form
       var contentContainer = this.$.contentContainer;
       this.toggleClass('error', !isValid, contentContainer);
     },
+
     // *ij* part of validation behavior API
     // this is a custom validation function which checks the max chars constraint
     _validateMaxChars: function(value) {
