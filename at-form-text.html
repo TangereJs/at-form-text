@@ -154,9 +154,6 @@ at-form-text represents an input type=text element on the form
       valueProvider.addEventListener('keypress', function(event) {
         if (event.which === 13) {
           event.preventDefault();
-          self.value = valueProvider.value;
-          self.validate();
-          self._fireValueChangedEvent(self.value);
         }
       });
 
@@ -207,6 +204,16 @@ at-form-text represents an input type=text element on the form
         this.validate();
         this._fireValueChangedEvent(newValue);
       }
+    },
+
+    validate: function () {
+      var inputValue = this.$.input.value;
+      if (inputValue !== this.value) {
+        this.value = inputValue;
+      }
+
+      var validationBehavior = this.behaviors[1];
+      validationBehavior.validate.call(this, this.value);
     },
 
     // *ij* part of validation behavior API
