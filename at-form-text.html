@@ -208,7 +208,7 @@ at-form-text represents an input type=text element on the form
 
     validate: function () {
       var inputValue = this.$.input.value;
-      if (inputValue !== this.value) {
+      if (this.value !== null && inputValue !== this.value) {
         this.value = inputValue;
       }
 
