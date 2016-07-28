@@ -1,6 +1,6 @@
 # at-form-elements validation API
 
-```
+```javascript
 validate: function () {
   /*
     This is validation flow only for non container elements; this doesn't work for at-core-form, at-form-complex and at-form-array
