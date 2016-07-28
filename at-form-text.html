@@ -255,6 +255,8 @@ at-form-text represents an input type=text element on the form
       /*
         1. check disabled, hide and errorMessage first
         if any of these are set validating anything else is meaningless
+
+        This can not be called from Tangere.behaviors.AtFormTextInputValidation because formUIGeneric is not availble in BOTS
        */
        /*
          TAG P1
