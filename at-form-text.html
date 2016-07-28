@@ -186,6 +186,10 @@ at-form-text represents an input type=text element on the form
     },
 
     valueChanged: function(newValue, oldValue) {
+      if (this._validationResultHandlingInProgress) {
+        return;
+      }
+
       var valueProvider = this.$.input;
 
       if (newValue === null) {
@@ -207,10 +211,11 @@ at-form-text represents an input type=text element on the form
     },
 
     validate: function () {
-      /*
-        This is validation flow only for non container elements; this doesn't work for at-core-form, at-form-complex and at-form-array
-      */
+      if (this._validationResultHandlingInProgress) {
+        return;
+      }
 
+      this._validationResultHandlingInProgress = true;
       /* (@ij on 28.07.2016 written for AT-162)
         update at-form-text.value for at-core-form-enter.keypress usecase
         consider following scenario
@@ -292,8 +297,10 @@ at-form-text represents an input type=text element on the form
       properties.maxChars.value = this.maxChars;
 
       validationResult = this._validateData(properties, this.value, this.T.bind(this));
+
       this._handleValidationResult(validationResult);
 
+      this._validationResultHandlingInProgress = false;
     },
 
     // *ij* part of validation behavior API
