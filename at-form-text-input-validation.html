@@ -9,7 +9,7 @@
       other environments must supply their own localization
     */
 
-    _validateData: function (properties, value, /* localizer */localizer) {
+    _validateData: function (schema, value, /* localizer */localizer) {
 
       function isFunction(obj) {
         return Object.prototype.toString.call(obj) === "[object Function]";
@@ -58,7 +58,7 @@
       /*
         TAG P2
       */
-      validationResult = this._validateValueType(properties.value, value, localizer);
+      validationResult = _validateValueType(schema.properties.value, value, localizer);
       if (!validationResult.isValid) {
         return validationResult;
       }
@@ -70,7 +70,7 @@
       /*
         TAG P3
       */
-      validationResult = this._validateRequired(properties.required.value, value, localizer);
+      validationResult = _validateRequired(schema.required, value, localizer);
       if (!validationResult.isValid) {
         return validationResult;
       }
@@ -83,77 +83,74 @@
 
         for at-form-text check maxChars only
       */
-      validationResult = this._validateMaxChars(properties.maxChars.value, value, localizer);
+      validationResult = _validateMaxChars(schema.maxChars, value, localizer);
 
       return validationResult;
-    },
 
-    _validateValueType: function (valueSchema, valueObj, localizer) {
-      function getTypeString(obj) {
-        return  Object.prototype.toString.call(obj);
-      }
-
-      var validationResult = {
-        isValid: true,
-        errorMessage: ""
-      };
-
-      // calculate type strings for valueObj and object that is returned from valueSchema.type function
-      // valueSchema.type function comes from at-form-text.properties.value.type
-      var schemaTypeString = getTypeString(valueSchema.type());
-      var valueObjTypeString = getTypeString(valueObj);
-
-      validationResult.isValid = schemaTypeString === valueObjTypeString;
-      if (!validationResult.isValid) {
-        validationResult.errorMessage = localizer("Type specified in schema doesn't match type of value object for property value. Expected {0} to match {1} ", schemaTypeString, valueObjTypeString);
-      }
-
-      return validationResult;
-    },
-
-    /**
-      @function _validateRequired
-      @return by default return value !== ""; this works for at-form-[ codemirror, date, daterange, lookup, markdown, number, password, radio, state, text and textarea ]
-      override in at-form-checkbox to always return true
-      override in at-form-file and at-from-image as is already implemented (see at-form-file Line 356 and at-form-image Line 450)
-    */
-    _validateRequired: function (required, value, localizer) {
-      var validationResult = {};
-      var required_ = Boolean(required);
-
-      // if required is true return true if value is not undefined, null or ""
-      validationResult.isValid = !required_ || ([undefined, null, ""].indexOf(value) === -1);
-      if (!validationResult.isValid) {
-        validationResult.errorMessage = localizer("This field is required.");
-      }
-
-      return validationResult;
-    },
-
-
-
-    _validateMaxChars: function(maxChars, value, localizer) {
-      var validationResult = {
-        isValid: true,
-        errorMessage: ""
-      };
-
-      try {
-        var maxChars = parseInt(this.maxChars);
-        if (maxChars > 0) {
-          var charCount = value.length;
-          validationResult.isValid = (maxChars + 1) > charCount;
-          if (!validationResult.isValid) {
-            validationResult.errorMessage = localizer("You can not enter more than {0} characters.", maxChars);
-          }
+      function _validateValueType(valueSchema, valueObj, localizer) {
+        function getTypeString(obj) {
+          return  Object.prototype.toString.call(obj);
         }
-      } catch (e) {
-        console.log(e);
+
+        var validationResult = {
+          isValid: true,
+          errorMessage: ""
+        };
+
+        // calculate type strings for valueObj and object that is returned from valueSchema.type function
+        // valueSchema.type function comes from at-form-text.properties.value.type
+        var schemaTypeString = getTypeString(valueSchema.type());
+        var valueObjTypeString = getTypeString(valueObj);
+
+        validationResult.isValid = schemaTypeString === valueObjTypeString;
+        if (!validationResult.isValid) {
+          validationResult.errorMessage = localizer("Type specified in schema doesn't match type of value object for property value. Expected {0} to match {1} ", schemaTypeString, valueObjTypeString);
+        }
+
+        return validationResult;
       }
 
-      return validationResult;
-    }
+      /**
+        @function _validateRequired
+        @return by default return value !== ""; this works for at-form-[ codemirror, date, daterange, lookup, markdown, number, password, radio, state, text and textarea ]
+        override in at-form-checkbox to always return true
+        override in at-form-file and at-from-image as is already implemented (see at-form-file Line 356 and at-form-image Line 450)
+      */
+      function _validateRequired(required, value, localizer) {
+        var validationResult = {};
+        var required_ = Boolean(required);
 
+        // if required is true return true if value is not undefined, null or ""
+        validationResult.isValid = !required_ || ([undefined, null, ""].indexOf(value) === -1);
+        if (!validationResult.isValid) {
+          validationResult.errorMessage = localizer("This field is required.");
+        }
+
+        return validationResult;
+      }
+
+      function _validateMaxChars(maxChars, value, localizer) {
+        var validationResult = {
+          isValid: true,
+          errorMessage: ""
+        };
+
+        try {
+          var maxChars = parseInt(maxChars);
+          if (maxChars > 0) {
+            var charCount = value.length;
+            validationResult.isValid = (maxChars + 1) > charCount;
+            if (!validationResult.isValid) {
+              validationResult.errorMessage = localizer("You can not enter more than {0} characters.", maxChars);
+            }
+          }
+        } catch (e) {
+          console.log(e);
+        }
+
+        return validationResult;
+      }
+    }
   };
 
 </script>

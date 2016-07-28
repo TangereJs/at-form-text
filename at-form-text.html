@@ -216,32 +216,7 @@ at-form-text represents an input type=text element on the form
       }
 
       this._validationResultHandlingInProgress = true;
-      /* (@ij on 28.07.2016 written for AT-162)
-        update at-form-text.value for at-core-form-enter.keypress usecase
-        consider following scenario
-        1. at-form-text is child of at-core-form
-        2. at-core-form listens to keypress event on its children with intent to validate itself when ENTER is pressed
-        3. at-form-text.$.input has focus
-        4. user types characters into input
-        5. user presses ENTER
-        6. at-core-form.keypress event handler is executed and ENTER is detected
-        7. at-core-form.validate is executed; this executes validate on each child
-        8. at-form-text.validate is executed
-        9. at this point at-form-text.$.input change event didn't trigger and at-form-text.$.input blur event didn't trigger
-        10. so at-form-text.value is not updated with the value from at-form-text.$.input
-        11. this needs to be done before validation occurs for at least two reasons
-        11.R1 its expected that at-form-text.validate operates on latest user input
-        11.R2 its expected that at-core-form.data is already populated with lastest values from child elements when at-core-form.validate is called
-        12. since at-form-text.$.input change/focus events didn't trigger and ENTER is pressed we detect that at-form-text.value needs to be updated by comparing
-            at-form-text.value with at-form-text.$.input.value
-        13. if they are different at-form-text.value should be updated with at-form-text.$.input.value
-
-        14. now there is a special case where at-form.text.value is set to null;
-        15. by setting at-form.text.value to null at-form-text.$.input.value is set to empty string
-        16. if at-form-text.validate is called and at-form-text.value === null and at-form-text.$.input.value === "", at-form-text.value should not be updated
-            because validation should operate on at-form-text.value === null. at-form-text.$.input.value is empty string because that should be displayed to the user
-        17. if at-form.text.value was set to null but then user types into at-form.text.$.input and then presses ENTER then at-form-text.value should be updated
-      */
+      // AT-162 validate should validate the current value
       /*
         TAG P1
 
@@ -277,9 +252,6 @@ at-form-text represents an input type=text element on the form
 
       /*
         2. check value type, required and element specific constraints
-        We clone needed properties from this.properties because when used in BOTS
-          - this.properties doesn't exist
-          - properties must contain current value for required and maxChars; this.properties contains initial values
        */
        /*
          TAG P2
@@ -287,16 +259,7 @@ at-form-text represents an input type=text element on the form
          _validateData comes from Tangere.behaviors.AtFormTextInputValidation
          _handleValidationResult comes from Tangere.behaviors.formUIGeneric
        */
-      var properties = {
-        value: JSON.parse(JSON.stringify(this.properties.value)),
-        required: JSON.parse(JSON.stringify(this.properties.required)),
-        maxChars: JSON.parse(JSON.stringify(this.properties.maxChars))
-      };
-      properties.value.type = this.properties.value.type; // assign this explicitly because functions can't be cloned with JSON stringify/parse pair
-      properties.required.value = this.required;
-      properties.maxChars.value = this.maxChars;
-
-      validationResult = this._validateData(properties, this.value, this.T.bind(this));
+      validationResult = this._validateData(this, this.value, this.T.bind(this));
 
       this._handleValidationResult(validationResult);
 
