@@ -28,7 +28,7 @@
 
   <script>
 
-    suite('events tests', function() {
+    suite('at-core-form-enter.keypress use case', function() {
 
       function getSchema() {
         return {
@@ -73,9 +73,14 @@
           if (keyCode === 13) {
             coreForm.validate();
             var textInputValue = textInput.value;
+            var inputProviderValue = inputProvider.value;
 
             // This aseert will always fail because in DOM API its not possible to insert characters into <input type=text> by dispatching events
+            assert.equal(inputProviderValue, "lorem ipsum delta");
+            // This aseert will always fail because in DOM API its not possible to insert characters into <input type=text> by dispatching events
             assert.equal(textInputValue, "lorem ipsum delta");
+            // This aseert will always fail because in DOM API its not possible to insert characters into <input type=text> by dispatching events
+            assert.equal(coreForm.data.text1, "lorem ipsum delta");
 
             var activeElement = document.activeElement;
             // This aseert will pass in shady dom; This asser will fail in shadow dom
@@ -100,6 +105,60 @@
         MockInteractions.keyEventOn(inputProvider, 'keypress', 108, 'l');
         MockInteractions.keyEventOn(inputProvider, 'keypress', 116, 't');
         MockInteractions.keyEventOn(inputProvider, 'keypress', 97, 'a');
+
+        MockInteractions.keyEventOn(inputProvider, 'keypress', 13, 'ENTER');
+      });
+
+
+      test('at-core-form-enter.keypress use case where only enter is simulated', function(done) {
+        /**
+         * Its not possible to create automated test that tests this usecase because of DOM API restrictions
+         * 7. ensure that validate() behaves like “blur” (so assign current input to .value, validate current input, ensure that focus is not lost). add test for this.
+         * 3. In at-core-form-enter.keypress handler its ok to display at-form-text.value event tough at-form-text.<input type=text>.value is being validated
+         * in keypress handler .value is old
+         * in keypress handler when form.validate() is called .value should be updated
+         * form.validate() will call validate() of all elements, so at-form-text.validate() should be adjusted
+         */
+        var coreForm = fixture('coreFormEnterValidateOnKeypress');
+        coreForm.schema = getSchema();
+        coreForm.data = getData();
+
+        assert.equal(schemaHelpers.areEqual(coreForm.schema, getSchema()), true, 'schema not set correctly');
+        assert.equal(schemaHelpers.areEqual(coreForm.data, getData()), true, 'data not set correctly');
+
+        var textInput = coreForm.getElement('text1');
+        var inputProvider = textInput._getFocusableElement();
+
+        coreForm.addEventListener('keypress', function(event) {
+
+            // event.which is deprecated and should not be used!
+          var keyCode = event.keyCode;
+          console.log(keyCode);
+          if (keyCode === 13) {
+            coreForm.validate();
+            var textInputValue = textInput.value;
+            var inputProviderValue = inputProvider.value;
+
+            // These asserts will pass because inputProvider value is updated by setting a new value to inputProvider.value property
+            assert.equal(inputProviderValue, "lorem ipsum delta");
+            assert.equal(textInputValue, "lorem ipsum delta");
+            assert.equal(coreForm.data.text1, "lorem ipsum delta");
+
+            var activeElement = document.activeElement;
+            // This aseert will pass in shady dom; This asser will fail in shadow dom
+            assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
+
+            done();
+          }
+
+        });
+
+        MockInteractions.focus(inputProvider);
+        var activeElement = document.activeElement;
+        // This aseert will pass in shady dom; This asser will fail in shadow dom
+        assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
+
+        inputProvider.value = "lorem ipsum delta";
 
         MockInteractions.keyEventOn(inputProvider, 'keypress', 13, 'ENTER');
       });
