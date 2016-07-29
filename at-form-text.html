@@ -2,7 +2,7 @@
 <link rel="import" href="../at-theme/at-theme.html">
 <link rel="import" href="../at-i18n/at-i18n-behavior.html">
 <link rel="import" href="../at-form-behaviors/at-form-behaviors.html">
-<link rel="import" href="at-form-text-input-validation.html">
+<link rel="import" href="at-form-text-input-validation-behavior.html">
 <link rel="import" href="../iron-label/iron-label.html">
 <!--
 @element at-form-text
@@ -247,6 +247,7 @@ at-form-text represents an input type=text element on the form
       var validationResult = this._validateBaseData();
       this._handleValidationResult(validationResult);
       if (!validationResult.isValid) {
+        this._validationResultHandlingInProgress = false;
         return ;
       }
 
@@ -260,7 +261,6 @@ at-form-text represents an input type=text element on the form
          _handleValidationResult comes from Tangere.behaviors.formUIGeneric
        */
       validationResult = this._validateData(this, this.value, this.T.bind(this));
-
       this._handleValidationResult(validationResult);
 
       this._validationResultHandlingInProgress = false;

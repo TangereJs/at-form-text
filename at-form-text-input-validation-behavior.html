@@ -15,16 +15,38 @@
         return Object.prototype.toString.call(obj) === "[object Function]";
       }
 
-      function format(format, args) {
+      function isObject(obj) {
+        return Object.prototype.toString.call(obj) === "[object Object]";
+      }
+
+      function isBoolean(obj) {
+        return Object.prototype.toString.call(obj) === "[object Boolean]";
+      }
+
+      function isNumber(obj) {
+        return Object.prototype.toString.call(obj) === "[object Number]";
+      }
+
+      function isHTMLElement(obj) {
+        return Object.prototype.toString.call(obj) === "[object HTMLElement]";
+      }
+
+      function isHTMLUnknownElement(obj) {
+        return Object.prototype.toString.call(obj) === "[object HTMLUnknownElement]";
+      }
+
+      function format(format) {
+
+        var args_ = Array.prototype.slice.call(arguments, 1);
 
         // replace {n}
         var fmt = format.replace(/{(\d+)}/g, function (match, number) {
-          return typeof args[number] != 'undefined' ? args[number] : match;
+          return typeof args_[number] != 'undefined' ? args_[number] : match;
         });
 
         // replace [n]
         fmt = fmt.replace(/\[(\d+)\]/g, function (match, number) {
-          return typeof args[number] != 'undefined' ? args[number] : match;
+          return typeof args_[number] != 'undefined' ? args_[number] : match;
         });
 
         return fmt;
@@ -42,14 +64,49 @@
       };
 
       // validate input parameters
-      /*
-        properties must be object,
-        must contain value object
-        value object must contain type property and type property must be a function
+      // validate input parameters
+      // schema must be object
+      // @isHTMLUnknownElement(schema) thank you IE11 and Safari for not supporting custom elements. Thank you very much ... 
+      validationResult.isValid = isObject(schema) || ((isHTMLUnknownElement(schema) || isHTMLElement(schema)) && schema.is === "at-form-text");
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema is not an object.")
+        return validationResult;
+      }
 
-        if value is null its valid
-        if value is undefined its invalid
-      */
+      //schema must have properties object
+      validationResult.isValid = isObject(schema.properties);
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema.properties is not an object.")
+        return validationResult;
+      }
+
+      //schema.properties must have value property and value property must be an object
+      validationResult.isValid = isObject(schema.properties.value);
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema.properties.value is not an object.")
+        return validationResult;
+      }
+
+      //schema.properties.value must have type property and type property must be a function
+      validationResult.isValid = isFunction(schema.properties.value.type);
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema.properties.value.type is not a function.")
+        return validationResult;
+      }
+
+      // schema must have required property and required must be boolean
+      validationResult.isValid = isBoolean(schema.required);
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema.required is not a boolean value.")
+        return validationResult;
+      }
+
+      // schema must have maxChars property and maxChars must be a Number
+      validationResult.isValid = isNumber(schema.maxChars);
+      if (!validationResult.isValid) {
+        validationResult.errorMessage = localizer("schema.maxChars is not a number value.")
+        return validationResult;
+      }
 
       /*
         2. check data type
@@ -100,11 +157,12 @@
         // calculate type strings for valueObj and object that is returned from valueSchema.type function
         // valueSchema.type function comes from at-form-text.properties.value.type
         var schemaTypeString = getTypeString(valueSchema.type());
+        var nullTypeString = getTypeString(null);
         var valueObjTypeString = getTypeString(valueObj);
 
-        validationResult.isValid = schemaTypeString === valueObjTypeString;
+        validationResult.isValid = (schemaTypeString === valueObjTypeString) || (nullTypeString === valueObjTypeString);
         if (!validationResult.isValid) {
-          validationResult.errorMessage = localizer("Type specified in schema doesn't match type of value object for property value. Expected {0} to match {1} ", schemaTypeString, valueObjTypeString);
+          validationResult.errorMessage = localizer("Type specified in schema doesn't match type of value object for property value. Expected {0} to match {1}", schemaTypeString, valueObjTypeString);
         }
 
         return validationResult;
