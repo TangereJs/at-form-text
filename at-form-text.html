@@ -184,9 +184,6 @@ at-form-text represents an input type=text element on the form
     },
 
     valueChanged: function(newValue, oldValue) {
-      if (this._validationResultHandlingInProgress) {
-        return;
-      }
 
       var valueProvider = this.$.input;
 
@@ -204,10 +201,12 @@ at-form-text represents an input type=text element on the form
       // should not be fired initially
       if (this._isReady) {
         this.validate();
+        this._fireValueChangedEvent(this.value);
       }
     },
 
     validate: function () {
+         
       if (this._validationResultHandlingInProgress) {
         return;
       }
@@ -220,10 +219,7 @@ at-form-text represents an input type=text element on the form
       if (inputValue !== this.value) {
 
         if (this.value != null || newValue != "") {   // ignore empty newValue when current value is null
-          this.value = inputValue;
-          if (this._isReady) {
-            this._fireValueChangedEvent(this.value);
-          }
+          this.value = inputValue;        
         }
       }
 
