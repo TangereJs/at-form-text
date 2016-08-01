@@ -16,7 +16,7 @@ at-form-text represents an input type=text element on the form
       :host * {
         box-sizing: border-box;
       }
-
+      
       :host {
         @apply(--at-form-host);
       }
@@ -36,7 +36,7 @@ at-form-text represents an input type=text element on the form
   "use strict";
   Polymer({
     is: 'at-form-text',
-    behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormTextInputValidation ],
+    behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormTextInputValidation],
     properties: {
       /**
        * @property value
@@ -121,7 +121,7 @@ at-form-text represents an input type=text element on the form
     $meta: [{
       title: "Text",
       type: "string",
-      events: [ "value-changed" ]
+      events: ["value-changed"]
     }],
     hideLabelChanged: function(newValue, oldValue) {
       var label = this.$.label;
@@ -140,8 +140,8 @@ at-form-text represents an input type=text element on the form
       var valueProvider = this.$.input;
 
       valueProvider.addEventListener('change', function(e) {
-        e.stopPropagation();        
-        self.validate();        
+        e.stopPropagation();
+        self.validate();
       });
 
       valueProvider.addEventListener('blur', function(e) {
@@ -204,7 +204,6 @@ at-form-text represents an input type=text element on the form
       // should not be fired initially
       if (this._isReady) {
         this.validate();
-        this._fireValueChangedEvent(newValue);
       }
     },
 
@@ -214,12 +213,18 @@ at-form-text represents an input type=text element on the form
       }
 
       this._validationResultHandlingInProgress = true;
-     
+
       // validate must validate the current value     
       var inputValue = this.$.input.value;
+      
       if (inputValue !== this.value) {
-        this.value = inputValue;
-        this._fireValueChangedEvent(this.value);
+
+        if (this.value != null || newValue != "") {   // ignore empty newValue when current value is null
+          this.value = inputValue;
+          if (this._isReady) {
+            this._fireValueChangedEvent(this.value);
+          }
+        }
       }
 
       /*
@@ -248,7 +253,7 @@ at-form-text represents an input type=text element on the form
       this._handleValidationResult(validationResult);
 
       this._validationResultHandlingInProgress = false;
-      
+
       return validationResult.isValid;
     },
 
