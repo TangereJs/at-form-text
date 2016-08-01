@@ -140,10 +140,8 @@ at-form-text represents an input type=text element on the form
       var valueProvider = this.$.input;
 
       valueProvider.addEventListener('change', function(e) {
-        e.stopPropagation();
-        self.value = valueProvider.value;
-        self.validate();
-        self._fireValueChangedEvent(self.value);
+        e.stopPropagation();        
+        self.validate();        
       });
 
       valueProvider.addEventListener('blur', function(e) {
@@ -216,20 +214,12 @@ at-form-text represents an input type=text element on the form
       }
 
       this._validationResultHandlingInProgress = true;
-      // AT-162 validate should validate the current value
-      /*
-        TAG P1
-
-        @include into behavior  {
-          No. This behavior is specific to single line input elements at-form- [ text, password, number, lookup and it should work for date]
-          other elements either do not need this (checkbox) or
-          it should work differently (file, image) or
-          it can't happen because elements handle ENTER already (codemirror, markdown, textarea)
-        }
-      */
+     
+      // validate must validate the current value     
       var inputValue = this.$.input.value;
-      if (this.value !== null && inputValue !== "" && inputValue !== this.value) {
+      if (inputValue !== this.value) {
         this.value = inputValue;
+        this._fireValueChangedEvent(this.value);
       }
 
       /*
@@ -237,9 +227,6 @@ at-form-text represents an input type=text element on the form
         if any of these are set validating anything else is meaningless
 
         This can not be called from Tangere.behaviors.AtFormTextInputValidation because formUIGeneric is not availble in BOTS
-       */
-       /*
-         TAG P1
 
          _validateBaseData comes from Tangere.behaviors.formUIGeneric
          _handleValidationResult comes from Tangere.behaviors.formUIGeneric
@@ -253,9 +240,6 @@ at-form-text represents an input type=text element on the form
 
       /*
         2. check value type, required and element specific constraints
-       */
-       /*
-         TAG P2
 
          _validateData comes from Tangere.behaviors.AtFormTextInputValidation
          _handleValidationResult comes from Tangere.behaviors.formUIGeneric
