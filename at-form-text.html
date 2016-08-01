@@ -248,7 +248,7 @@ at-form-text represents an input type=text element on the form
       this._handleValidationResult(validationResult);
       if (!validationResult.isValid) {
         this._validationResultHandlingInProgress = false;
-        return ;
+        return validationResult.isValid;
       }
 
       /*
@@ -264,6 +264,8 @@ at-form-text represents an input type=text element on the form
       this._handleValidationResult(validationResult);
 
       this._validationResultHandlingInProgress = false;
+      
+      return validationResult.isValid;
     },
 
     // *ij* part of validation behavior API
