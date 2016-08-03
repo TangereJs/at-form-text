@@ -39,6 +39,71 @@ at-form-text represents an input type=text element on the form
     behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormTextInputValidation],
     properties: {
       /**
+       * @property label
+       * Element's label for element display purposes
+       */
+      label: {
+        type: String,
+        value: '',
+        title: 'Label'
+      },
+
+      /**
+       * @property hideLabel
+       */
+      hideLabel: {
+        type: Boolean,
+        value: false,
+        observer: 'hideLabelChanged',
+        title: 'Do not show the label'
+      },
+
+      /**
+       * @property placeholder
+       * Element's placeholder text for element display purposes
+       */
+      placeholder: {
+        type: String,
+        value: '',
+        title: 'Placeholder text'
+      },
+
+      /**
+       * @property disabled
+       * Element's disabled state
+       */
+      disabled: {
+        type: Boolean,
+        value: false,
+        observer: 'disabledChanged',
+        title: 'Field value can not be changed'
+      },
+
+      /**
+       * Hides the element. When hidden nothing is displayed for the element
+       * @property hide
+       * @type Boolean
+       * @default false
+       */
+      hide: {
+        type: Boolean,
+        value: false,
+        observer: 'hideChanged',
+        title: 'Field is invisible'
+      },
+
+      /**
+       * @property required
+       * Element's required state for element validation purposes
+       */
+      required: {
+        type: Boolean,
+        value: false,
+        observer: 'requiredChanged',
+        title: 'Input required'
+      },
+
+      /**
        * @property value
        * Element's required status for element validation purposes
        * this is achieved via autoamtic value-changed event
@@ -51,71 +116,17 @@ at-form-text represents an input type=text element on the form
         observer: 'valueChanged',
         title: 'Value'
       },
-      /**
-       * @property hideLabel
-       */
-
-      hideLabel: {
-        type: Boolean,
-        value: false,
-        observer: 'hideLabelChanged',
-        title: 'Do not show the label'
-      },
 
       /**
-       * Element's required state for element validation purposes
+       * @property maxChars
+       * Maximum number of characters allowed in value
+       * If 0, any number of characters is allowed
        */
-      required: {
-        type: Boolean,
-        value: false,
-        observer: 'requiredChanged',
-        title: 'Input required'
-      },
-
-      /**
-       * Element's disabled state
-       */
-      disabled: {
-        type: Boolean,
-        value: false,
-        observer: 'disabledChanged',
-        title: 'Field value can not be changed'
-      },
-
-      /**
-       * Element's label for element display purposes
-       */
-      label: {
-        type: String,
-        value: '',
-        title: 'Label'
-      },
-
-      /**
-       * Element's placeholder text for element display purposes
-       */
-      placeholder: {
-        type: String,
-        value: '',
-        title: 'Placeholder text'
-      },
       maxChars: {
         type: Number,
         value: 0,
         observer: 'maxCharsChanged',
         title: 'Maximum number of characters'
-      },
-      /**
-       * Hides the element. When hidden nothing is displayed for the element
-       * @property hide
-       * @type Boolean
-       * @default false
-       */
-      hide: {
-        type: Boolean,
-        value: false,
-        observer: 'hideChanged',
-        title: 'Field is invisible'
       }
     },
     $meta: [{
