@@ -46,6 +46,14 @@
         };
       }
 
+      // helper function that figures out whether we are in shadowDOM or shadyDOM
+      function getDomMode(input) {
+        if (!input.shadowRoot) {
+          return 'shadyDOM';
+        }
+        return 'shadowDOM';
+      }
+
       test('at-core-form-enter.keypress use case', function(done) {
         /**
          * Its not possible to create automated test that tests this usecase because of DOM API restrictions
@@ -83,7 +91,10 @@
             assert.equal(coreForm.data.text1, "lorem ipsum delta");
 
             var activeElement = document.activeElement;
-            // This aseert will pass in shady dom; This asser will fail in shadow dom
+            // get correct activeElement if shadow DOM is used
+            if (getDomMode(textInput) === "shadowDOM") {
+              activeElement = textInput.shadowRoot.activeElement;
+            }
             assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
 
             done();
@@ -91,9 +102,12 @@
 
         });
 
-        MockInteractions.focus(inputProvider);
+        inputProvider.focus();
         var activeElement = document.activeElement;
-        // This aseert will pass in shady dom; This asser will fail in shadow dom
+        // get correct activeElement if shadow DOM is used
+        if (getDomMode(textInput) === "shadowDOM") {
+          activeElement = textInput.shadowRoot.activeElement;
+        }
         assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
 
         // in DOM API its not possible to insert characters into <input type=text> by dispatching events
@@ -145,7 +159,10 @@
             assert.equal(coreForm.data.text1, "lorem ipsum delta");
 
             var activeElement = document.activeElement;
-            // This aseert will pass in shady dom; This asser will fail in shadow dom
+            // get correct activeElement if shadow DOM is used
+            if (getDomMode(textInput) === "shadowDOM") {
+              activeElement = textInput.shadowRoot.activeElement;
+            }
             assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
 
             done();
@@ -153,9 +170,12 @@
 
         });
 
-        MockInteractions.focus(inputProvider);
+        inputProvider.focus();
         var activeElement = document.activeElement;
-        // This aseert will pass in shady dom; This asser will fail in shadow dom
+        // get correct activeElement if shadow DOM is used
+        if (getDomMode(textInput) === "shadowDOM") {
+          activeElement = textInput.shadowRoot.activeElement;
+        }
         assert.equal(activeElement.id, inputProvider.id, 'text element has lost focus');
 
         inputProvider.value = "lorem ipsum delta";

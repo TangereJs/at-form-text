@@ -28,7 +28,18 @@
   </test-fixture>
 
   <script>
+    /*
+      These tests will fail in Chrome under shadow DOM because
+    */
     suite('validate like blur tests', function() {
+
+      // helper function that figures out whether we are in shadowDOM or shadyDOM
+      function getDomMode(input) {
+        if (!input.shadowRoot) {
+          return 'shadyDOM';
+        }
+        return 'shadowDOM';
+      }
 
       test('validate like blur, set input.value', function() {
         var input = fixture('validateLikeBlur');
@@ -37,10 +48,13 @@
         assert.equal(input.value, "", 'Input value is not correct');
         assert.equal(inputElement.value, "", 'Input element value is not correct');
 
-        MockInteractions.focus(inputElement);
+        inputElement.focus();
         var activeElement = document.activeElement;
+        if (getDomMode(input) === 'shadowDOM') {
+          activeElement = input.shadowRoot.activeElement;
+        }
 
-        assert.equal(inputElement.is, activeElement.is, 'Input element has lost focus');
+        assert.equal(inputElement.id, activeElement.id, 'Input element has lost focus');
 
         input.value = "lorem ipsum";
 
@@ -52,7 +66,7 @@
         assert.equal(input.value, "lorem ipsum", 'Input value is not correct');
         assert.equal(inputElement.value, "lorem ipsum", 'Input element value is not correct');
 
-        assert.equal(inputElement.is, activeElement.is, 'Input element has lost focus');
+        assert.equal(inputElement.id, activeElement.id, 'Input element has lost focus');
       });
 
       test('validate like blur, set inputElement.value', function() {
@@ -62,10 +76,13 @@
         assert.equal(input.value, "", 'Input value is not correct');
         assert.equal(inputElement.value, "", 'Input element value is not correct');
 
-        MockInteractions.focus(inputElement);
+        inputElement.focus();
         var activeElement = document.activeElement;
-
-        assert.equal(inputElement.is, activeElement.is, 'Input element has lost focus');
+        if (getDomMode(input) === 'shadowDOM') {
+          activeElement = input.shadowRoot.activeElement;
+        }
+        
+        assert.equal(inputElement.id, activeElement.id, 'Input element has lost focus');
 
         inputElement.value = "lorem ipsum";
 
@@ -77,7 +94,7 @@
         assert.equal(input.value, "lorem ipsum", 'Input value is not correct');
         assert.equal(inputElement.value, "lorem ipsum", 'Input element value is not correct');
 
-        assert.equal(inputElement.is, activeElement.is, 'Input element has lost focus');
+        assert.equal(inputElement.id, activeElement.id, 'Input element has lost focus');
       });
 
     });
