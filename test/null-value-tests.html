@@ -375,6 +375,59 @@
           assert.equal(eventCount, 1);
           done();
         });
+
+      });
+
+      test('property value set to null and user input is empty string', function(done) {
+        var input = document.createElement('at-form-text');
+        input.value = null;
+
+        assert.equal(input.value, null, 'value not set correctly');
+        assert.equal(input.valid, true, 'element is invalid');
+
+        var eventCount = 0;
+        input.addEventListener('value-changed', function(event) {
+          assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
+          assert.equal(input.value, 'demo value', 'event detail value not set correctly');
+          assert.equal(input.valid, true, 'element is valid');
+          eventCount += 1;
+        });
+
+        var inputElement = input.$.input;
+
+        inputElement.value = "";
+        TestHelpers.fireEvent('change', {}, inputElement);
+        
+        flush(function() {
+          assert.equal(eventCount, 0);
+          done();
+        });
+      });
+
+      test('property value set to null and user input is non empty string', function(done) {
+        var input = document.createElement('at-form-text');
+        input.value = null;
+
+        assert.equal(input.value, null, 'value not set correctly');
+        assert.equal(input.valid, true, 'element is invalid');
+
+        var eventCount = 0;
+        input.addEventListener('value-changed', function(event) {
+          assert.equal(event.detail.value, 'lorem ipsum', 'event detail value not set correctly');
+          assert.equal(input.value, 'lorem ipsum', 'event detail value not set correctly');
+          assert.equal(input.valid, true, 'element is valid');
+          eventCount += 1;
+        });
+
+        var inputElement = input.$.input;
+
+        inputElement.value = "lorem ipsum";
+        TestHelpers.fireEvent('change', {}, inputElement);
+
+        flush(function() {
+          assert.equal(eventCount, 1);
+          done();
+        });
       });
 
     });

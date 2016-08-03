@@ -16,7 +16,7 @@ at-form-text represents an input type=text element on the form
       :host * {
         box-sizing: border-box;
       }
-      
+
       :host {
         @apply(--at-form-host);
       }
@@ -206,21 +206,23 @@ at-form-text represents an input type=text element on the form
     },
 
     validate: function () {
-         
+
       if (this._validationResultHandlingInProgress) {
         return;
       }
 
       this._validationResultHandlingInProgress = true;
 
-      // validate must validate the current value     
+      // validate must validate the current value
       var inputValue = this.$.input.value;
-      
-      if (inputValue !== this.value) {
 
-        if (this.value != null || newValue != "") {   // ignore empty newValue when current value is null
-          this.value = inputValue;        
-        }
+      // this.value === null && inputValue === "" means that null value was set in code and user didn't type anything; in this case null value is validated
+      // this.value !== null && inputValue ===  "" means that value is not null and user has cleared the input field; value of empty string is validated
+
+      // this.value === null && inputValue !== "" means that null value was set in code and user has typed into input field
+      // this.value !== null && this.value !== inputValue means that value is not null and user has typed into input field a new value which is different from the old one
+      if ((this.value === null && inputValue !== "") || (this.value !== null && this.value !== inputValue)) {
+        this.value = inputValue;
       }
 
       /*
