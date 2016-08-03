@@ -114,11 +114,18 @@
         // so coreForm, at-form-text and at-form-text.$.input detect these events but at-form-text.$.input value is not updated
         // MockInteractions uses Custom Events
         // Creating KeyEvent or KeyboardEvent and dispatching them produces the same result as CustomEvent
+        MockInteractions.keyEventOn(inputProvider, 'keypress', 32, ' ');
+        inputProvider.value = inputProvider.value + " ";
         MockInteractions.keyEventOn(inputProvider, 'keypress', 100, 'd');
+        inputProvider.value = inputProvider.value + "d";
         MockInteractions.keyEventOn(inputProvider, 'keypress', 101, 'e');
+        inputProvider.value = inputProvider.value + "e";
         MockInteractions.keyEventOn(inputProvider, 'keypress', 108, 'l');
+        inputProvider.value = inputProvider.value + "l";
         MockInteractions.keyEventOn(inputProvider, 'keypress', 116, 't');
+        inputProvider.value = inputProvider.value + "t";
         MockInteractions.keyEventOn(inputProvider, 'keypress', 97, 'a');
+        inputProvider.value = inputProvider.value + "a";
 
         MockInteractions.keyEventOn(inputProvider, 'keypress', 13, 'ENTER');
       });
