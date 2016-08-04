@@ -150,12 +150,12 @@ at-form-text represents an input type=text element on the form
       var self = this;
       var valueProvider = this.$.input;
 
-      valueProvider.addEventListener('change', function(e) {
-        e.stopPropagation();
+      valueProvider.addEventListener('change', function(e) {        
+        e.stopPropagation();     
         self.validate();
       });
 
-      valueProvider.addEventListener('blur', function(e) {
+      valueProvider.addEventListener('blur', function(e) {        
         e.stopPropagation();
         self.validate();
       });
@@ -205,24 +205,16 @@ at-form-text represents an input type=text element on the form
         valueProvider.value = newValue;
       }
 
-      // when value changes due to user input or its changed programmatically
-      // valid state should be updated and visual indication displayed
+      // when value changes due to user input or its changed programmatically      
       // when valueChanged is called because value is set as attribute
       // that happens before ready function is called, so value-changed
       // should not be fired initially
-      if (this._isReady) {
-        this.validate();
+      if (this._isReady) {        
         this._fireValueChangedEvent(this.value);
       }
     },
 
     validate: function () {
-
-      if (this._validationResultHandlingInProgress) {
-        return;
-      }
-
-      this._validationResultHandlingInProgress = true;
 
       // validate must validate the current value
       var inputValue = this.$.input.value;
@@ -232,23 +224,18 @@ at-form-text represents an input type=text element on the form
 
       // this.value === null && inputValue !== "" means that null value was set in code and user has typed into input field
       // this.value !== null && this.value !== inputValue means that value is not null and user has typed into input field a new value which is different from the old one
-      if ((this.value === null && inputValue !== "") || (this.value !== null && this.value !== inputValue)) {
+      if ((this.value === null && inputValue !== "") || (this.value !== null && this.value !== inputValue)) {       
         this.value = inputValue;
       }
 
       /*
-        1. check disabled, hide and errorMessage first
-        if any of these are set validating anything else is meaningless
+        1. check disabled, hide and errorMessage first        
 
-        This can not be called from Tangere.behaviors.AtFormTextInputValidation because formUIGeneric is not availble in BOTS
-
-         _validateBaseData comes from Tangere.behaviors.formUIGeneric
-         _handleValidationResult comes from Tangere.behaviors.formUIGeneric
-       */
+        Tangere.behaviors.formUIGeneric provides _validateBaseData/_handleValidationResult 
+      */
       var validationResult = this._validateBaseData();
       this._handleValidationResult(validationResult);
-      if (!validationResult.isValid) {
-        this._validationResultHandlingInProgress = false;
+      if (validationResult.isFinal) {        
         return validationResult.isValid;
       }
 
@@ -261,12 +248,9 @@ at-form-text represents an input type=text element on the form
       validationResult = this._validateData(this, this.value, this.T.bind(this));
       this._handleValidationResult(validationResult);
 
-      this._validationResultHandlingInProgress = false;
-
       return validationResult.isValid;
     },
 
-    // *ij* part of validation behavior API
     // include _updateUIValidState function and implement it to update
     // the UI to reflect the new valid state
     _updateUIValidState: function(isValid) {
@@ -284,6 +268,7 @@ at-form-text represents an input type=text element on the form
     _getFocusableElement: function () {
       var focusable = this.$.input;
       return focusable;
-    }
+    }   
+       
   });
 </script>
