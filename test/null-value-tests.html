@@ -165,7 +165,7 @@
         var input = fixture('attrNullValueAndMaxChars');
         assert.equal(input.value, "null", 'value not set correctly');
         assert.equal(input.maxChars, 2, 'maxChars is not set correctly');
-        assert.equal(input.valid, true, 'element is not invalid');
+        assert.equal(input.valid, false, 'element is not valid as value is too long');
 
         var eventCount = 0;
         input.addEventListener('value-changed', function(event) {
@@ -191,7 +191,7 @@
         var input = fixture('attrNullStringValueAndMaxChars');
         assert.equal(input.value, "null", 'value not set correctly');
         assert.equal(input.maxChars, 2, 'maxChars is not set correctly');
-        assert.equal(input.valid, true, 'value not set correctly');
+        assert.equal(input.valid, false, 'value is to long');
 
         var eventCount = 0;
         input.addEventListener('value-changed', function(event) {
@@ -362,7 +362,7 @@
         input.addEventListener('value-changed', function(event) {
           assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
           assert.equal(input.value, 'demo value', 'event detail value not set correctly');
-          assert.equal(input.valid, false, 'element is valid');
+          assert.equal(input.valid, false, 'element is valid');         
           eventCount += 1;
         });
 
@@ -372,7 +372,7 @@
         Polymer.dom(input).setAttribute('value', 'demo value');
 
         flush(function() {
-          assert.equal(eventCount, 1);
+          assert.equal(eventCount, 1, "second .value assignment of same value should not trigger 2nd change event");
           done();
         });
 
@@ -387,9 +387,9 @@
 
         var eventCount = 0;
         input.addEventListener('value-changed', function(event) {
-          assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
-          assert.equal(input.value, 'demo value', 'event detail value not set correctly');
-          assert.equal(input.valid, true, 'element is valid');
+          assert.equal(event.detail.value, '', 'event detail value not set correctly');
+          assert.equal(input.value, '', 'event detail value not set correctly');
+          assert.equal(input.valid, true, 'element is invalid');          
           eventCount += 1;
         });
 
@@ -414,8 +414,9 @@
         var eventCount = 0;
         input.addEventListener('value-changed', function(event) {
           assert.equal(event.detail.value, 'lorem ipsum', 'event detail value not set correctly');
-          assert.equal(input.value, 'lorem ipsum', 'event detail value not set correctly');
-          assert.equal(input.valid, true, 'element is valid');
+          assert.equal(input.value, 'lorem ipsum', 'event detail value not set correctly');       
+
+          assert.equal(input.valid, true, 'element is invalid');
           eventCount += 1;
         });
 
