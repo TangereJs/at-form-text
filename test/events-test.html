@@ -15,8 +15,6 @@
   <script src="../../iron-test-helpers/mock-interactions.js"></script>
 
   <link rel="import" href="../at-form-text.html">
-  <link rel="import" href="../../paper-input/paper-input.html">
-
 </head>
 <body>
 
@@ -29,12 +27,6 @@
   <test-fixture id="valueAsAttrTextFixture">
     <template>
       <at-form-text value="lorem ipsum"></at-form-text>
-    </template>
-  </test-fixture>
-
-  <test-fixture id="paperValueChanged">
-    <template>
-      <paper-input></paper-input>
     </template>
   </test-fixture>
 
@@ -71,19 +63,6 @@
           assert.equal(eventCount, 0, 'value-changed event was fired');
           done();
         });
-      });
-
-
-      test('paper-input value changed', function (done) {
-        var input = fixture('paperValueChanged');
-
-        input.addEventListener('value-changed', function(event) {
-          assert.equal(event.detail.value, 'demo value', 'event detail value not set correctly');
-          assert.equal(input.value, 'demo value', 'event detail value not set correctly');
-          done();
-        });
-
-        input.value = "demo value";
       });
 
     });
