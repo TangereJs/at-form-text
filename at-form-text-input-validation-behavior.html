@@ -66,7 +66,7 @@
       // validate input parameters
       // validate input parameters
       // schema must be object
-      // @isHTMLUnknownElement(schema) thank you IE11 and Safari for not supporting custom elements. Thank you very much ... 
+      // @isHTMLUnknownElement(schema) thank you IE11 and Safari for not supporting custom elements. Thank you very much ...
       validationResult.isValid = isObject(schema) || ((isHTMLUnknownElement(schema) || isHTMLElement(schema)) && schema.is === "at-form-text");
       if (!validationResult.isValid) {
         validationResult.errorMessage = localizer("schema is not an object.")
@@ -102,7 +102,7 @@
       }
 
       // schema must have maxChars property and maxChars must be a Number
-      validationResult.isValid = isNumber(schema.maxChars);
+      validationResult.isValid = !isNaN(schema.maxChars) || isNumber(schema.maxChars);
       if (!validationResult.isValid) {
         validationResult.errorMessage = localizer("schema.maxChars is not a number value.")
         return validationResult;
