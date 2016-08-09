@@ -156,7 +156,7 @@ at-form-text represents an input type=text element on the form
       });
 
       valueProvider.addEventListener('blur', function(e) {        
-        e.stopPropagation();
+        e.stopPropagation();       
         self.validate();
       });
 
@@ -167,6 +167,7 @@ at-form-text represents an input type=text element on the form
       });
 
       this._isReady = true;
+      
     },
 
     disabledChanged: function(newValue, oldValue) {
@@ -178,8 +179,8 @@ at-form-text represents an input type=text element on the form
       }
     },
 
-    requiredChanged: function() {
-      if (this._isReady) {
+    requiredChanged: function() {      
+      if (this._isReady) {       
         this.validate();
       }
     },
@@ -214,8 +215,10 @@ at-form-text represents an input type=text element on the form
       }
     },
 
-    validate: function () {
-
+    validate: function (showError) {
+      
+      if(showError === undefined) showError = this.autovalidate;
+      
       // validate must validate the current value
       var inputValue = this.$.input.value;
 
@@ -234,7 +237,7 @@ at-form-text represents an input type=text element on the form
         Tangere.behaviors.formUIGeneric provides _validateBaseData/_handleValidationResult 
       */
       var validationResult = this._validateBaseData();
-      this._handleValidationResult(validationResult);
+      if(showError) this._handleValidationResult(validationResult);
       if (validationResult.isFinal) {        
         return validationResult.isValid;
       }
@@ -246,7 +249,7 @@ at-form-text represents an input type=text element on the form
          _handleValidationResult comes from Tangere.behaviors.formUIGeneric
        */
       validationResult = this._validateData(this, this.value, this.T.bind(this));
-      this._handleValidationResult(validationResult);
+      if(showError) this._handleValidationResult(validationResult);
 
       return validationResult.isValid;
     },
