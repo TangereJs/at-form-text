@@ -54,7 +54,7 @@ at-form-text represents an input type=text element on the form
       hideLabel: {
         type: Boolean,
         value: false,
-        observer: 'hideLabelChanged',
+        observer: '_hideLabelChanged',
         title: 'Do not show the label'
       },
 
@@ -75,7 +75,7 @@ at-form-text represents an input type=text element on the form
       disabled: {
         type: Boolean,
         value: false,
-        observer: 'disabledChanged',
+        observer: '_disabledChanged',
         title: 'Field value can not be changed'
       },
 
@@ -88,7 +88,7 @@ at-form-text represents an input type=text element on the form
       hide: {
         type: Boolean,
         value: false,
-        observer: 'hideChanged',
+        observer: '_hideChanged',
         title: 'Field is invisible'
       },
 
@@ -99,7 +99,6 @@ at-form-text represents an input type=text element on the form
       required: {
         type: Boolean,
         value: false,
-        observer: 'requiredChanged',
         title: 'Input required'
       },
 
@@ -107,13 +106,13 @@ at-form-text represents an input type=text element on the form
        * @property value
        * Element's required status for element validation purposes
        * this is achieved via autoamtic value-changed event
-       * observer: 'valueChanged' outside world should be able to set/update the element's value
-       * component is notified about this via valueChanged callback function
+       * observer: '_valueChanged' outside world should be able to set/update the element's value
+       * component is notified about this via _valueChanged callback function
        */
       value: {
         type: String,
         value: '',
-        observer: 'valueChanged',
+        observer: '_valueChanged',
         title: 'Value'
       },
 
@@ -125,10 +124,13 @@ at-form-text represents an input type=text element on the form
       maxChars: {
         type: Number,
         value: 0,
-        observer: 'maxCharsChanged',
         title: 'Maximum number of characters'
       }
     },
+
+    observers: [
+      '_internalValidStateUpdate(disabled, required, maxChars)'
+    ],
 
     $meta: [{
       title: "Text",
@@ -136,14 +138,14 @@ at-form-text represents an input type=text element on the form
       events: ["value-changed"]
     }],
 
-    hideLabelChanged: function (newValue, oldValue) {
+    _hideLabelChanged: function (newValue, oldValue) {
       var label = this.$.label;
       this.toggleClass("hidden", newValue, label);
     },
 
-    hideChanged: function (newValue, oldValue) {
+    _hideChanged: function (newValue, oldValue) {
       var wrapper = this.$.atContainer;
-      this.toggleClass('hidden', newValue, wrapper);     
+      this.toggleClass('hidden', newValue, wrapper);
     },
 
     ready: function() {
@@ -151,13 +153,13 @@ at-form-text represents an input type=text element on the form
       var self = this;
       var valueProvider = this.$.input;
 
-      valueProvider.addEventListener('change', function(e) {        
-        e.stopPropagation();     
+      valueProvider.addEventListener('change', function(e) {
+        e.stopPropagation();
         self.validate();
       });
 
-      valueProvider.addEventListener('blur', function(e) {        
-        e.stopPropagation();       
+      valueProvider.addEventListener('blur', function(e) {
+        e.stopPropagation();
         self.validate();
       });
 
@@ -168,27 +170,17 @@ at-form-text represents an input type=text element on the form
       });
 
       this._isReady = true;
-      
+      this._internalValidStateUpdate(this.disabled, this.required, this.maxChars);
     },
 
-    disabledChanged: function(newValue, oldValue) {
+    _disabledChanged: function(newValue, oldValue) {
       var container = this.$.atContainer;
       this.toggleClass('disabled', newValue, container);
-
-      if (this._isReady) {
-        this.validate();
-      }
     },
 
-    requiredChanged: function() {      
-      if (this._isReady) {       
-        this.validate();
-      }
-    },
-
-    maxCharsChanged: function(newValue, oldValue) {
+    _internalValidStateUpdate: function(disabled, required, maxChars) {
       if (this._isReady) {
-        this.validate();
+        this.validate(true);
       }
     },
 
@@ -196,7 +188,7 @@ at-form-text represents an input type=text element on the form
       this.$.input.focus();
     },
 
-    valueChanged: function(newValue, oldValue) {
+    _valueChanged: function(newValue, oldValue) {
 
       var valueProvider = this.$.input;
 
@@ -207,19 +199,21 @@ at-form-text represents an input type=text element on the form
         valueProvider.value = newValue;
       }
 
-      // when value changes due to user input or its changed programmatically      
-      // when valueChanged is called because value is set as attribute
+      // when value changes due to user input or its changed programmatically
+      // when _valueChanged is called because value is set as attribute
       // that happens before ready function is called, so value-changed
       // should not be fired initially
-      if (this._isReady) {        
+      if (this._isReady) {
         this._fireValueChangedEvent(this.value);
       }
     },
 
     validate: function (showError) {
-      
+
       if(showError === undefined) showError = this.autovalidate;
-      
+      if (!showError) {
+        this._clearUIValidState();
+      }
       // validate must validate the current value
       var inputValue = this.$.input.value;
 
@@ -228,18 +222,18 @@ at-form-text represents an input type=text element on the form
 
       // this.value === null && inputValue !== "" means that null value was set in code and user has typed into input field
       // this.value !== null && this.value !== inputValue means that value is not null and user has typed into input field a new value which is different from the old one
-      if ((this.value === null && inputValue !== "") || (this.value !== null && this.value !== inputValue)) {       
+      if ((this.value === null && inputValue !== "") || (this.value !== null && this.value !== inputValue)) {
         this.value = inputValue;
       }
 
       /*
-        1. check disabled, hide and errorMessage first        
+        1. check disabled, hide and errorMessage first
 
-        Tangere.behaviors.formUIGeneric provides _validateBaseData/_handleValidationResult 
+        Tangere.behaviors.formUIGeneric provides _validateBaseData/_handleValidationResult
       */
       var validationResult = this._validateBaseData();
       if(showError) this._handleValidationResult(validationResult);
-      if (validationResult.isFinal) {       
+      if (validationResult.isFinal) {
         return validationResult.isValid;
       }
 
@@ -258,7 +252,7 @@ at-form-text represents an input type=text element on the form
     // include _updateUIValidState function and implement it to update
     // the UI to reflect the new valid state
     _updateUIValidState: function (isValid) {
-     
+
       var label = this.$.label;
       this.toggleClass('error', !isValid, label);
       var contentContainer = this.$.contentContainer;
@@ -273,7 +267,7 @@ at-form-text represents an input type=text element on the form
     _getFocusableElement: function () {
       var focusable = this.$.input;
       return focusable;
-    }   
-       
+    }
+
   });
 </script>
