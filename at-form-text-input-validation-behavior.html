@@ -102,7 +102,8 @@
       }
 
       // schema must have maxChars property and maxChars must be a Number
-      validationResult.isValid = !isNaN(schema.maxChars) || isNumber(schema.maxChars);
+      var parsedResult = parseInt(schema.maxChars);
+      validationResult.isValid = !isNaN(parsedResult);
       if (!validationResult.isValid) {
         validationResult.errorMessage = localizer("schema.maxChars is not a number value.")
         return validationResult;

@@ -179,11 +179,11 @@
         assert.equal(validationResult.isValid, false, 'schema.maxChars is valid');
         assert.equal(validationResult.errorMessage, "schema.maxChars is not a number value.", 'error message not set correctly');
 
-        var invalidValues = [ undefined, null, "", "42", "3.14159", true, false, "true", "false", [], {}, "[]", "{}", function () { return undefined; }];
+        var invalidValues = [ undefined, null, "", true, false, "true", "false", [], {}, "[]", "{}", function () { return undefined; }];
 
         for (var i = 0; i < invalidValues.length; i++) {
           var invalidValue = invalidValues[i];
-          schema._valueFormat = invalidValue;
+          schema.maxChars = invalidValue;
 
           var validationResult = inputValidation._validateData(schema, value, format);
 
