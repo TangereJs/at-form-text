@@ -157,12 +157,12 @@ at-form-text represents an input type=text element on the form
 
       valueProvider.addEventListener('change', function(e) {
         e.stopPropagation();
-        self.validate(true);
+        self.validate();
       });
 
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
-        self.validate(true);
+        self.validate();
       });
 
       valueProvider.addEventListener('keypress', function(event) {
@@ -182,7 +182,7 @@ at-form-text represents an input type=text element on the form
 
     _internalValidStateUpdate: function(disabled, required, maxChars) {
       if (this._isReady) {
-        this.validate(true);
+        this.validate();
       }
     },
 
