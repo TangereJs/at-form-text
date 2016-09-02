@@ -39,8 +39,10 @@ at-form-text represents an input type=text element on the form
     behaviors: [Tangere.behaviors.i18n, Tangere.behaviors.formUIGeneric, Tangere.behaviors.AtFormTextInputValidation],
     properties: {
       /**
-       * @property label
        * Element's label for element display purposes
+       * @property label
+       * @type String
+       * @default ""
        */
       label: {
         type: String,
@@ -49,7 +51,10 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
+       * When true label is hidden
        * @property hideLabel
+       * @type Boolean
+       * @default false
        */
       hideLabel: {
         type: Boolean,
@@ -103,11 +108,8 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
+       * Elements value
        * @property value
-       * Element's required status for element validation purposes
-       * this is achieved via autoamtic value-changed event
-       * observer: '_valueChanged' outside world should be able to set/update the element's value
-       * component is notified about this via _valueChanged callback function
        */
       value: {
         type: String,
@@ -155,12 +157,12 @@ at-form-text represents an input type=text element on the form
 
       valueProvider.addEventListener('change', function(e) {
         e.stopPropagation();
-        self.validate();
+        self.validate(true);
       });
 
       valueProvider.addEventListener('blur', function(e) {
         e.stopPropagation();
-        self.validate();
+        self.validate(true);
       });
 
       valueProvider.addEventListener('keypress', function(event) {
@@ -211,9 +213,7 @@ at-form-text represents an input type=text element on the form
     validate: function (showError) {
 
       if(showError === undefined) showError = this.autovalidate;
-      if (!showError) {
-        this._clearUIValidState();
-      }
+
       // validate must validate the current value
       var inputValue = this.$.input.value;
 
