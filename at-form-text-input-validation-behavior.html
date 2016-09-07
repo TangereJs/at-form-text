@@ -176,7 +176,10 @@
         override in at-form-file and at-from-image as is already implemented (see at-form-file Line 356 and at-form-image Line 450)
       */
       function _validateRequired(required, value, localizer) {
-        var validationResult = {};
+        var validationResult = {
+          isValid: true,
+          errorMessage: ""
+        };
         var required_ = Boolean(required);
 
         // if required is true return true if value is not undefined, null or ""
