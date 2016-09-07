@@ -64,8 +64,10 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
-       * @property placeholder
        * Element's placeholder text for element display purposes
+       * @property placeholder
+       * @type String
+       * @default ""
        */
       placeholder: {
         type: String,
@@ -74,8 +76,10 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
-       * @property disabled
        * Element's disabled state
+       * @property disabled
+       * @type Boolean
+       * @default false
        */
       disabled: {
         type: Boolean,
@@ -98,8 +102,10 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
-       * @property required
        * Element's required state for element validation purposes
+       * @property required
+       * @type Boolean
+       * @default false
        */
       required: {
         type: Boolean,
@@ -110,6 +116,8 @@ at-form-text represents an input type=text element on the form
       /**
        * Elements value
        * @property value
+       * @type String
+       * @default ""
        */
       value: {
         type: String,
@@ -119,9 +127,11 @@ at-form-text represents an input type=text element on the form
       },
 
       /**
-       * @property maxChars
        * Maximum number of characters allowed in value
        * If 0, any number of characters is allowed
+       * @property maxChars
+       * @type Number
+       * @default 0
        */
       maxChars: {
         type: Number,
@@ -131,7 +141,7 @@ at-form-text represents an input type=text element on the form
     },
 
     observers: [
-      '_internalValidStateUpdate(disabled, required, maxChars)'
+      '_internalValidStateUpdate(disabled, hide, required, maxChars)'
     ],
 
     $meta: [{
@@ -143,11 +153,6 @@ at-form-text represents an input type=text element on the form
     _hideLabelChanged: function (newValue, oldValue) {
       var label = this.$.label;
       this.toggleClass("hidden", newValue, label);
-    },
-
-    _hideChanged: function (newValue, oldValue) {
-      var wrapper = this.$.atContainer;
-      this.toggleClass('hidden', newValue, wrapper);
     },
 
     ready: function() {
@@ -166,7 +171,7 @@ at-form-text represents an input type=text element on the form
       });
 
       valueProvider.addEventListener('keypress', function(event) {
-        if (event.which === 13) {
+        if (event.keyCode === 13) {
           event.preventDefault();
         }
       });
@@ -180,14 +185,15 @@ at-form-text represents an input type=text element on the form
       this.toggleClass('disabled', newValue, container);
     },
 
+    _hideChanged: function (newValue, oldValue) {
+      var wrapper = this.$.atContainer;
+      this.toggleClass('hidden', newValue, wrapper);
+    },
+
     _internalValidStateUpdate: function(disabled, required, maxChars) {
       if (this._isReady) {
         this.validate();
       }
-    },
-
-    focus: function() {
-      this.$.input.focus();
     },
 
     _valueChanged: function(newValue, oldValue) {
@@ -257,6 +263,10 @@ at-form-text represents an input type=text element on the form
       this.toggleClass('error', !isValid, label);
       var contentContainer = this.$.contentContainer;
       this.toggleClass('error', !isValid, contentContainer);
+    },
+
+    focus: function() {
+      this.$.input.focus();
     },
 
     // this function is part of the hint/validation API
