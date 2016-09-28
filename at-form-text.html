@@ -141,7 +141,7 @@ at-form-text represents an input type=text element on the form
     },
 
     observers: [
-      '_internalValidStateUpdate(disabled, required, maxChars)'
+      '_internalValidStateUpdate(required, maxChars)'
     ],
 
     $meta: [{
@@ -177,7 +177,7 @@ at-form-text represents an input type=text element on the form
       });
 
       this._isReady = true;
-      this._internalValidStateUpdate(this.disabled, this.required, this.maxChars);
+      this._internalValidStateUpdate(this.required, this.maxChars);
     },
 
     _disabledChanged: function(newValue, oldValue) {
@@ -190,7 +190,7 @@ at-form-text represents an input type=text element on the form
       this.toggleClass('hidden', newValue, wrapper);
     },
 
-    _internalValidStateUpdate: function(disabled, required, maxChars) {
+    _internalValidStateUpdate: function(required, maxChars) {
       if (this._isReady) {
         this.validate();
       }
@@ -239,7 +239,7 @@ at-form-text represents an input type=text element on the form
       */
       var validationResult = this._validateBaseData();
       if(showError) this._handleValidationResult(validationResult);
-      if (validationResult.isFinal) {
+      if (!validationResult.isValid) {
         return validationResult.isValid;
       }
 

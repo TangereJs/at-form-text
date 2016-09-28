@@ -115,18 +115,18 @@
           assert.equal(input.$.atContainer.classList.contains('hidden'), true, 'container has hidden class');
         });
 
-        test('required and disabled => valid = true', function() {
+        test('required and disabled => valid = false', function() {
           var input = fixture('requiredAndDisabled');
           assert.equal(input.required, true, 'required property is true');
           assert.equal(input.disabled, true, 'disabled property is true');
-          assert.equal(input.valid, true, 'input is valid');
+          assert.equal(input.valid, false, 'input is valid');
         });
 
-        test('required and hidden => valid = true', function() {
+        test('required and hidden => valid = false', function() {
           var input = fixture('requiredAndHidden');
           assert.equal(input.required, true, 'required property is true');
           assert.equal(input.hide, true, 'hide property is true');
-          assert.equal(input.valid, true, 'input is valid');
+          assert.equal(input.valid, false, 'input is valid');
         });
 
         test('errorMessage => valid = false', function() {
@@ -247,8 +247,8 @@
           assert.equal(result.isValid, true, "element UI state is not correct");
           assert.equal(result.errorMessage, "", "error message is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is false
@@ -283,8 +283,8 @@
           assert.equal(result.isValid, false, "element UI state is not correct");
           assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           result = isElementUIStateValid(element);
           // we expect UI state to be invalid because autovalidate is true, and because setting hide to true should not affect rendering of error messages
@@ -292,8 +292,8 @@
           // _validateBaseData returns isValid true because hide is true
           // but because autovalidate is true, showError messages is true and this causes _handleValidationResult to be called with isValid = true
           // which clears error messages from UI, which for hide should not happen
-          assert.equal(result.isValid, true, "element UI state is not correct");
-          assert.equal(result.errorMessage, "", "error message is not correct");
+          assert.equal(result.isValid, false, "element UI state is not correct");
+          assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
         });
 
         test('set hide to false, when (autovalidate, hide, required, value) = (false, true, true, "")', function() {
@@ -307,8 +307,8 @@
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           var result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is false
@@ -345,21 +345,21 @@
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           var result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is true and hide also hides error messages
-          assert.equal(result.isValid, true, "element UI state is not correct");
-          assert.equal(result.errorMessage, "", "error message is not correct");
+          assert.equal(result.isValid, false, "element UI state is not correct");
+          assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
 
           element.hide = false;
           // setting hide to true should not trigger validate function
           // UI should remain valid
           result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is false
-          assert.equal(result.isValid, true, "element UI state is not correct");
-          assert.equal(result.errorMessage, "", "error message is not correct");
+          assert.equal(result.isValid, false, "element UI state is not correct");
+          assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
 
           assert.equal(element.valid, false, "valid state is not correct");
           assert.equal(element.validate(), false, "valid state is not correct");
@@ -397,8 +397,8 @@
           assert.equal(result.isValid, true, "element UI state is not correct");
           assert.equal(result.errorMessage, "", "error message is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is false
@@ -429,16 +429,16 @@
           // setting disabled to true will trigger validate function but
           result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is true, and because setting disabled to true affects rendering of error messages
-          assert.equal(result.isValid, true, "element UI state is not correct");
-          assert.equal(result.errorMessage, "", "error message is not correct");
+          assert.equal(result.isValid, false, "element UI state is not correct");
+          assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
 
-          assert.equal(element.valid, true, "valid state is not correct");
-          assert.equal(element.validate(), true, "valid state is not correct");
+          assert.equal(element.valid, false, "valid state is not correct");
+          assert.equal(element.validate(), false, "valid state is not correct");
 
           result = isElementUIStateValid(element);
           // we expect UI state to be valid because autovalidate is true, and because setting disabled to true affects rendering of error messages
-          assert.equal(result.isValid, true, "element UI state is not correct");
-          assert.equal(result.errorMessage, "", "error message is not correct");
+          assert.equal(result.isValid, false, "element UI state is not correct");
+          assert.equal(result.errorMessage, "label has error css class", "error message is not correct");
 
         });
 
