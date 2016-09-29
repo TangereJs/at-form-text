@@ -199,7 +199,7 @@
           // external errorMessage is not set so valid is not false because of that
           var element = fixture('initial');
 
-          assert.equal(element.autovalidate, false, "element is autovalidating")
+          assert.equal(element.autoValidate, false, "element is autovalidating")
           assert.equal(element.disabled, false, "element is disabled");
           assert.equal(element.hide, false, "element is hidden");
           assert.equal(element.required, false, "element is required");
@@ -227,7 +227,7 @@
           element.required = true;
           element.value = "";
 
-          assert.equal(element.autovalidate, false, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, false, "autovalidate value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
@@ -259,11 +259,11 @@
 
         test('set hide to true, when (autovalidate, hide, required, value) = (true, false, true, "")', function() {
           var element = fixture('initial');
-          element.autovalidate = true;
+          element.autoValidate = true;
           element.required = true;
           element.value = "";
 
-          assert.equal(element.autovalidate, true, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, true, "autovalidate value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
@@ -302,7 +302,7 @@
           element.value = "";
           element.hide = true;
 
-          assert.equal(element.autovalidate, false, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, false, "autovalidate value is not correct");
           assert.equal(element.hide, true, "hide value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
@@ -335,12 +335,12 @@
 
         test('set hide to false, when (autovalidate, hide, required, value) = (true, true, true, "")', function() {
           var element = fixture('initial');
-          element.autovalidate = true;
+          element.autoValidate = true;
           element.required = true;
           element.value = "";
           element.hide = true;
 
-          assert.equal(element.autovalidate, true, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, true, "autovalidate value is not correct");
           assert.equal(element.hide, true, "hide value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
@@ -378,7 +378,7 @@
           element.required = true;
           element.value = "";
 
-          assert.equal(element.autovalidate, false, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, false, "autovalidate value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
@@ -409,11 +409,11 @@
 
         test('set disabled to true, (autovalidate, required, value) = (true, true, "") => valid false', function() {
           var element = fixture('initial');
-          element.autovalidate = true;
+          element.autoValidate = true;
           element.required = true;
           element.value = "";
 
-          assert.equal(element.autovalidate, true, "autovalidate value is not correct");
+          assert.equal(element.autoValidate, true, "autovalidate value is not correct");
           assert.equal(element.required, true, "required value is not correct");
           assert.equal(element.value, "", "value is not correct");
 
