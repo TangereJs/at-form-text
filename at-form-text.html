@@ -238,7 +238,7 @@ at-form-text represents an input type=text element on the form
         Tangere.behaviors.formUIGeneric provides _validateBaseData/_handleValidationResult
       */
       var validationResult = this._validateBaseData();
-      if(showError) this._handleValidationResult(validationResult);
+      this._handleValidationResult(validationResult);
       if (!validationResult.isValid) {
         return validationResult.isValid;
       }
