@@ -214,6 +214,9 @@ at-form-text represents an input type=text element on the form
       if (this._isReady) {
         this._fireValueChangedEvent(this.value);
       }
+      
+      // show validation result when autoValidate is enabled
+      if(this.autoValidate) this._validate(true);
     },
 
     validate: function (showError) {
@@ -232,6 +235,12 @@ at-form-text represents an input type=text element on the form
         this.value = inputValue;
       }
 
+      return this._validate(showError);
+      
+    },
+    
+    _validate: function(showError) {
+      
       /*
         1. check disabled, hide and errorMessage first
 
