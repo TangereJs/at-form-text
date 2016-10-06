@@ -130,48 +130,48 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null keeps element valid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting required to true should make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" should make element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" should make element invalid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
         });
 
         test('value null, required false, autovalidate false', function () {
@@ -183,48 +183,48 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
         });
 
@@ -236,48 +236,48 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting value to "lorem ipsum"
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes the element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps the element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value null, required true, autovalidate false', function () {
@@ -289,48 +289,48 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value empty, required false, autovalidate true', function () {
@@ -341,48 +341,48 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null keeps element valid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting required to true should make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" should make element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" should make element invalid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
         });
 
         test('value null, required false, autovalidate true', function () {
@@ -394,48 +394,48 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
         });
 
         test('value empty, required true, autovalidate true', function () {
@@ -446,48 +446,48 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting value to "lorem ipsum"
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes the element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps the element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value null, required true, autovalidate true', function () {
@@ -499,48 +499,48 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
       });
@@ -557,442 +557,442 @@
 
         test('value empty, required false, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "";
           element.required = false;
-          element.autoValidate = false;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.required, false, "required not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null keeps element valid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting required to true should make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" should make element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" should make element invalid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
         });
 
         test('value null, required false, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = null;
           element.required = false;
-          element.autoValidate = false;
 
           assert.equal(element.value, null, "value not set correctly");
           assert.equal(element.required, false, "required not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
         });
 
         test('value empty, required true, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "";
           element.required = true;
-          element.autoValidate = false;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.required, true, "required not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting value to "lorem ipsum"
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes the element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps the element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value null, required true, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = null;
           element.required = true;
-          element.autoValidate = false;
 
           assert.equal(element.value, null, "value not set correctly");
           assert.equal(element.required, true, "required not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value empty, required false, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "";
           element.required = false;
-          element.autoValidate = true;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.required, false, "required not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null keeps element valid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting required to true should make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" should make element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" should make element invalid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
         });
 
         test('value null, required false, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = null;
           element.required = false;
-          element.autoValidate = true;
 
           assert.equal(element.value, null, "value not set correctly");
           assert.equal(element.required, false, "required not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // make element invalid
           element.required = true;
           assert.equal(element.required, true, "required not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
         });
 
         test('value empty, required true, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "";
           element.required = true;
-          element.autoValidate = true;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.required, true, "required not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting value to "lorem ipsum"
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes the element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps the element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value null, required true, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = null;
           element.required = true;
-          element.autoValidate = true;
 
           assert.equal(element.value, null, "value not set correctly");
           assert.equal(element.required, true, "required not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // setting value to "lorem ipsum" makes element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to null makes element invalid
           element.value = null;
           assert.equal(element.value, null, "value not set correctly");
 
           // element should be invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("This field is required."));
+          assertElementIsInvalid(element);
 
           // make element valid by setting required to false
           element.required = false;
           assert.equal(element.required, false, "required not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" keeps element valid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" keeps element valid
           element.value = "";
           assert.equal(element.value, "", "value not set correctly");
 
           // element should be valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
       });

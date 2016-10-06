@@ -121,32 +121,32 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 10 makes element invalid
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 0, autovalidate false', function () {
@@ -156,32 +156,32 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // set maxChars to 10
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
         });
 
@@ -192,32 +192,32 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting maxChars to 0 makes element valid
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 10, autovalidate false', function () {
@@ -227,32 +227,32 @@
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 0 doens't change valid state
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value empty, maxChars 0, autovalidate true', function () {
@@ -262,32 +262,32 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 10 makes element invalid
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 0, autovalidate true', function () {
@@ -297,32 +297,32 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // set maxChars to 10
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
         });
 
         test('value empty, maxChars 10, autovalidate true', function () {
@@ -332,32 +332,32 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting maxChars to 0 makes element valid
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 10, autovalidate true', function () {
@@ -367,32 +367,32 @@
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 0 doens't change valid state
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
       });
@@ -411,314 +411,314 @@
 
         test('value empty, maxChars 0, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "";
           element.maxChars = 0;
-          element.autoValidate = false;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 10 makes element invalid
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 0, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "lorem ipsum";
           element.maxChars = 0;
-          element.autoValidate = false;
 
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // set maxChars to 10
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
         });
 
         test('value empty, maxChars 10, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "";
           element.maxChars = 10;
-          element.autoValidate = false;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting maxChars to 0 makes element valid
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 10, autovalidate false', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = false;
           element.value = "lorem ipsum";
           element.maxChars = 10;
-          element.autoValidate = false;
 
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
           assert.equal(element.autoValidate, false, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, "");
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 0 doens't change valid state
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value empty, maxChars 0, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "";
           element.maxChars = 0;
-          element.autoValidate = true;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 10 makes element invalid
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 0, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "lorem ipsum";
           element.maxChars = 0;
-          element.autoValidate = true;
 
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // set maxChars to 10
           element.maxChars = 10;
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
         });
 
         test('value empty, maxChars 10, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "";
           element.maxChars = 10;
-          element.autoValidate = true;
 
           assert.equal(element.value, "", "value not set correctly");
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to lorem ipsum makes element invalid
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting maxChars to 0 makes element valid
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "" doesn't change valid state
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
         test('value "lorem ipsum", maxChars 10, autovalidate true', function () {
           var element = fixture('propertyTest');
+          element.autoValidate = true;
           element.value = "lorem ipsum";
           element.maxChars = 10;
-          element.autoValidate = true;
 
           assert.equal(element.value, "lorem ipsum", "value not set correctly");
           assert.equal(element.maxChars, 10, "maxChars not set correctly");
           assert.equal(element.autoValidate, true, "autoValidate not set correctly");
 
           // element is initially invalid
-          assertElementIsInvalid(element);
           assertErrorMessage(element, element.T("You can not enter more than {0} characters.", 10));
+          assertElementIsInvalid(element);
 
           // setting value to "" makes element valid
           element.value = "";
           assert.equal(element.value, "", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting maxChars to 0 doens't change valid state
           element.maxChars = 0;
           assert.equal(element.maxChars, 0, "maxChars not set correctly");
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
 
           // setting value to "lorem ipsum" doesn't change valid state
           element.value = "lorem ipsum";
           assert.equal(element.value, "lorem ipsum", 'value not set correctly');
 
           // assert that element is valid
-          assertElementIsValid(element);
           assertErrorMessage(element, "");
+          assertElementIsValid(element);
         });
 
       });
