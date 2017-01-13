@@ -2,8 +2,8 @@
 <link rel="import" href="../at-theme/at-theme.html">
 <link rel="import" href="../at-i18n/at-i18n-behavior.html">
 <link rel="import" href="../at-form-behaviors/at-form-behaviors.html">
-<link rel="import" href="at-form-text-input-validation-behavior.html">
 <link rel="import" href="../iron-label/iron-label.html">
+<link rel="import" href="at-form-text-input-validation-behavior.html">
 <!--
 @element at-form-text
 at-form-text represents an input type=text element on the form
@@ -215,7 +215,7 @@ at-form-text represents an input type=text element on the form
       if (this._isReady) {
         this._fireValueChangedEvent(this.value);
       }
-      
+
       // show validation result when autoValidate is enabled
       if(this.autoValidate) this._validate(true);
     },
@@ -237,11 +237,11 @@ at-form-text represents an input type=text element on the form
       }
 
       return this._validate(showError);
-      
+
     },
-    
+
     _validate: function(showError) {
-      
+
       /*
         1. check disabled, hide and errorMessage first
 
