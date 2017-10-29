@@ -1,0 +1,40 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+
+  <title></title>
+  <script src="../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="at-form-text.html" />
+</head>
+
+<body>
+  <div id="container">
+    <at-form-text id="first" type="text" placeholder="first input"></at-form-text>
+    <input id="second" type="text" placeholder="second input">
+  </div>
+  
+  <script>
+    document.addEventListener('WebComponentsReady', function(e) {
+
+      var c = document.getElementById('container');
+      
+      c.addEventListener('value-changed', function(e) {
+        console.log("value-changed");
+      });
+      
+      c.addEventListener('change', function(e) {
+
+        console.log("change: " + e.srcElement.id);
+
+      });
+
+    });
+  </script>
+</body>
+
+</html>
