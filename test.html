@@ -10,12 +10,20 @@
   <title></title>
   <script src="../webcomponentsjs/webcomponents-lite.js"></script>
   <link rel="import" href="at-form-text.html" />
+  <link rel="import" href="test-form-text.html" />
+  <style>
+    .mt {
+      display: block;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 
 <body>
   <div id="container">
-    <at-form-text id="first" type="text" placeholder="first input"></at-form-text>
-    <input id="second" type="text" placeholder="second input">
+    <at-form-text id="first" class="mt" type="text" placeholder="first input"></at-form-text>
+    <input id="second" class="mt" type="text" placeholder="second input">
+    <test-form-text id="third" class="mt"></test-form-text>
   </div>
   
   <script>
@@ -24,13 +32,11 @@
       var c = document.getElementById('container');
       
       c.addEventListener('value-changed', function(e) {
-        console.log("value-changed");
+        console.log("value-changed" + e.srcElement.id);
       });
       
       c.addEventListener('change', function(e) {
-
         console.log("change: " + e.srcElement.id);
-
       });
 
     });

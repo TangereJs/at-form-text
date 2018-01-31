@@ -162,7 +162,8 @@ at-form-text represents an input type=text element on the form
       var valueProvider = this.$.input;
 
       valueProvider.addEventListener('change', function(e) {
-        e.stopPropagation();
+        // change branch: commenting out stopPropagation enables event bubbling
+        // e.stopPropagation();
         self.validate();
       });
 
