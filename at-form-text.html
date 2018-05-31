@@ -224,8 +224,8 @@ at-form-text represents an input type=text element on the form
 
       if(showError === undefined) showError = this.autoValidate;
 
-      // validate must validate the current value
-      var inputValue = this.$.input.value;
+      // when available, validate must validate the current value
+      var inputValue = this.$.input == null ? this.value : this.$.input.value;
 
       // this.value === null && inputValue === "" means that null value was set in code and user didn't type anything; in this case null value is validated
       // this.value !== null && inputValue ===  "" means that value is not null and user has cleared the input field; value of empty string is validated
