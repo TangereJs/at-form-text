@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>at-form-text Demo</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../at-form-text.html">
+
+</head>
+<body>
+  <h4>Hi!</h4>
+  <div id="insertPoint"></div>
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      var ipElt = document.getElementById('insertPoint');
+      var elt = document.createElement('at-form-text');
+      // In polymer 1.x elt has shadyDOM present
+      // In polymer 2.x elt doesn't have any shadowDOM, yet
+      elt.value = null;
+      debugger;
+      
+      // In polymer 1.x elt inspecting elt.valid passes because elt has shadyDOM present
+      // In polymer 2.x elt inspecting elt.valid fails because elt doesn't have shadowDOM present, yet
+      var isValid = elt.valid;
+      debugger;
+
+      // append the element to the DOM tree
+      ipElt.appendChild(elt);
+      // In polymer 1.x elt has shadyDOM present
+      // In polymer 2.x elt has shadowDOM present      
+      debugger;
+
+      // In polymer 1.x elt inspecting elt.valid passes because elt has shadyDOM present
+      // In polymer 2.x elt inspecting elt.valid passes because elt has shadowDOM present
+      var isValid = elt.valid;
+      debugger;
+    });
+  </script>
+</body>
+</html>
