@@ -65,3 +65,61 @@ When `null` is assigned and `at-form-text.maxChars > 0`
 * `at-form-text.value` should remain `"null"`,
 * `at-form-text` text input value should become `"null"`, and
 * `at-form-text.valid` should be `true` if `maxChars > 4` and `false` otherwise; that is standard `maxCharsValidation` applies as for any other string value
+
+### Polymer 2 validation handling
+
+`at-form-text` can be made invalid as follows
+1. by setting `errorMessage` property to `non-empty string`
+2. by setting `required` to `true` and value to `empty string`
+3. by setting `maxChars` to `non-zero positive value` and `value` to `string` that has more than `maxChars` characters
+
+`at-form-text` can be instructed to display errors in the UI in two ways
+1. by settings `autoValidate` property
+1. by calling `validate` function with `showError` value of `true`
+
+
+#### Case 1. `at-form-text` is made invalid by setting `errorMessage`
+
+It is a design decision to always show errors in UI when `errorMessage` property is set.
+
+When `at-form-text` is made invalid by setting `errorMessage` calling `validate` function should return `false`.
+
+After attaching the element to the DOM, UI should show invalid state per following table
+
+| autoValidate | showError | validate function result | show errors in UI |
+| --- | --- | --- | --- |
+| false | false | false | true |
+| false | true | false | true |
+| true | false | false | true |
+| true | true | false | true |
+
+
+#### Case 2. `at-form-text` is made invalid by setting `required` and `value`
+
+It is a design decision to show errors in UI when `required` property is set when `autoValidate` is `true` or `validate` is called with `showError` value of `true`.
+
+When `at-form-text` is made invalid by setting `required` to `true` and `value` to `empty string` calling `validate` function should return `false`.
+
+After attaching the element to the DOM, UI should show invalid state per following table
+
+| autoValidate | showError | validate function result | show errors in UI |
+| --- | --- | --- | --- |
+| false | false | false | false |
+| false | true | false | true |
+| true | false | false | true |
+| true | true | false | true |
+
+#### Case 3. `at-form-text` is made invalid by setting `maxChars` and `value`
+
+It is a design decision to show errors in UI when `maxChars` property is set when `autoValidate` is `true` or `validate` is called with `showError` value of `true`.
+
+When `at-form-text` is made invalid by setting `maxChars` to `non-zero positive value` and `value` to `string` that has more than `maxChars` characters calling `validate` function should return `false`.
+
+After attaching the element to the DOM, UI should show invalid state per following table
+
+| autoValidate | showError | validate function result | show errors in UI |
+| --- | --- | --- | --- |
+| false | false | false | false |
+| false | true | false | true |
+| true | false | false | true |
+| true | true | false | true |
