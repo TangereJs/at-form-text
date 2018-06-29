@@ -228,7 +228,7 @@
         document.body.appendChild(elt);
 
         // assert that UI reflects valid state
-        assertUIValidState(elt, isValid, errorMessage);
+        assertUIValidState(elt, !isValid, '');
 
         document.body.removeChild(elt);
       });
@@ -328,7 +328,7 @@
         document.body.appendChild(elt);
 
         // assert that UI reflects valid state
-        assertUIValidState(elt, isValid, errorMessage);
+        assertUIValidState(elt, !isValid, '');
 
         document.body.removeChild(elt);
       });

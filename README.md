@@ -106,7 +106,7 @@ After attaching the element to the DOM, UI should show invalid state per followi
 | --- | --- | --- | --- |
 | false | false | false | false |
 | false | true | false | true |
-| true | false | false | true |
+| true | false | false | false |
 | true | true | false | true |
 
 #### Case 3. `at-form-text` is made invalid by setting `maxChars` and `value`
@@ -121,5 +121,5 @@ After attaching the element to the DOM, UI should show invalid state per followi
 | --- | --- | --- | --- |
 | false | false | false | false |
 | false | true | false | true |
-| true | false | false | true |
+| true | false | false | false |
 | true | true | false | true |

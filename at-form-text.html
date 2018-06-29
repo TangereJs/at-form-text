@@ -198,6 +198,11 @@ at-form-text represents an input type=text element on the form
         this._showErrorsWhenAttached = undefined;
         this.validate(true);
         return;
+      
+      } else if (this._clearErrorsWhenAttached) {
+        this._clearErrorsWhenAttached = undefined;
+        this.validate(false);
+        return;
       }
 
       this.validate();
@@ -231,6 +236,9 @@ at-form-text represents an input type=text element on the form
       if (!this.$ && this.autoValidate == false && showError == true) {
         // showError should be true when _internalValidStateUpdate is called from ready after element is attached
         this._showErrorsWhenAttached = true;
+      
+      } else if (!this.$ && this.autoValidate == true && showError == false) {
+        this._clearErrorsWhenAttached = true;
       }
 
       if(showError === undefined) showError = this.autoValidate;
